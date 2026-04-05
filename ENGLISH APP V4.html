@@ -1,0 +1,4222 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <meta name="theme-color" content="#000000">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="apple-mobile-web-app-title" content="ENG">
+  <link rel="manifest" id="manifestLink">
+  <title>ENG — YESKO</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap"
+    rel="stylesheet">
+  <style>
+    :root {
+      --bg: #000;
+      --surface: #0d0d0d;
+      --surface2: #141414;
+      --surface3: #1c1c1e;
+      --border: #1f1f1f;
+      --border2: #2a2a2a;
+      --p: #8b5cf6;
+      --p2: #a78bfa;
+      --p3: #c4b5fd;
+      --pglow: rgba(139, 92, 246, .35);
+      --pglow2: rgba(139, 92, 246, .15);
+      --pglow3: rgba(139, 92, 246, .08);
+      --text: #fff;
+      --text2: #a1a1aa;
+      --text3: #52525b;
+      --green: #22c55e;
+      --blue: #3b82f6;
+      --orange: #f97316;
+      --red: #ef4444;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      -webkit-tap-highlight-color: transparent
+    }
+
+    html {
+      min-height: 100%
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Inter', sans-serif;
+      min-height: 100vh;
+      overflow-x: hidden;
+      overflow-y: auto;
+      padding-bottom: 80px;
+      -webkit-font-smoothing: antialiased
+    }
+
+    /* HEADER */
+    .hdr {
+      padding: 14px 18px 12px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      background: rgba(0, 0, 0, .94);
+      backdrop-filter: blur(20px);
+      z-index: 100;
+      border-bottom: 1px solid var(--border)
+    }
+
+    .hdr-logo {
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: .12em;
+      color: var(--text3);
+      text-transform: uppercase
+    }
+
+    .hdr-right {
+      display: flex;
+      gap: 8px;
+      align-items: center
+    }
+
+    .badge {
+      font-size: 12px;
+      font-weight: 700;
+      padding: 5px 12px;
+      border-radius: 20px;
+      letter-spacing: .04em
+    }
+
+    .badge-level {
+      background: var(--pglow);
+      color: var(--p2);
+      border: 1px solid rgba(139, 92, 246, .3)
+    }
+
+    .badge-streak {
+      background: var(--surface2);
+      color: var(--text2);
+      border: 1px solid var(--border2)
+    }
+
+    /* MAIN SECTIONS */
+    .main-section {
+      display: none
+    }
+
+    .main-section.active {
+      display: block
+    }
+
+    .container {
+      padding: 18px 16px;
+      max-width: 500px;
+      margin: 0 auto
+    }
+
+    /* SUB TABS (inside Learn / Profile) */
+    .section-tabs {
+      display: flex;
+      background: rgba(0, 0, 0, .9);
+      border-bottom: 1px solid var(--border);
+      position: sticky;
+      top: 49px;
+      z-index: 99;
+      padding: 4px 12px;
+      gap: 4px
+    }
+
+    .section-tab {
+      flex: 1;
+      padding: 10px 0;
+      border: none;
+      border-radius: 10px;
+      background: none;
+      color: var(--text3);
+      font-family: 'Inter', sans-serif;
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all .2s;
+      text-align: center;
+      letter-spacing: .02em
+    }
+
+    .section-tab.active {
+      color: var(--p2);
+      background: var(--pglow3)
+    }
+
+    .section-tab.active::after {
+      content: none
+    }
+
+    .section-panel {
+      display: none
+    }
+
+    .section-panel.active {
+      display: block
+    }
+
+    .tab-content {
+      display: none
+    }
+
+    .tab-content.active {
+      display: block
+    }
+
+    /* PROFILE HEADER */
+    .profile-hdr {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 18px 16px 0;
+      max-width: 500px;
+      margin: 0 auto
+    }
+
+    .profile-hdr-left {
+      display: flex;
+      align-items: center;
+      gap: 12px
+    }
+
+    .profile-avatar {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--p), #6d28d9);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      box-shadow: 0 0 20px var(--pglow)
+    }
+
+    .profile-name {
+      font-size: 18px;
+      font-weight: 800;
+      color: var(--text)
+    }
+
+    .profile-sub {
+      font-size: 11px;
+      color: var(--text3);
+      margin-top: 2px
+    }
+
+    .settings-btn {
+      background: var(--surface2);
+      border: 1px solid var(--border2);
+      color: var(--text2);
+      width: 38px;
+      height: 38px;
+      border-radius: 12px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      transition: all .2s
+    }
+
+    .settings-btn:hover {
+      border-color: var(--p);
+      color: var(--p2);
+      background: var(--pglow3)
+    }
+
+    /* BOTTOM NAV */
+    .bottom-nav {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: rgba(0, 0, 0, .96);
+      border-top: 1px solid var(--border);
+      display: flex;
+      z-index: 200;
+      backdrop-filter: blur(24px);
+      padding: 6px 0;
+      padding-bottom: max(6px, env(safe-area-inset-bottom))
+    }
+
+    .bnav-btn {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 6px 0;
+      cursor: pointer;
+      color: var(--text3);
+      font-size: 10px;
+      font-weight: 600;
+      gap: 4px;
+      border: none;
+      background: none;
+      transition: all .2s;
+      letter-spacing: .03em
+    }
+
+    .bnav-btn.active {
+      color: var(--p2)
+    }
+
+    .bnav-btn .bnav-icon {
+      font-size: 22px;
+      transition: transform .2s
+    }
+
+    .bnav-btn.active .bnav-icon {
+      transform: scale(1.1);
+      filter: drop-shadow(0 0 8px var(--pglow))
+    }
+
+    .bnav-dot {
+      width: 4px;
+      height: 4px;
+      border-radius: 50%;
+      background: var(--p);
+      box-shadow: 0 0 6px var(--pglow);
+      margin-top: 2px;
+      opacity: 0;
+      transition: opacity .2s
+    }
+
+    .bnav-btn.active .bnav-dot {
+      opacity: 1
+    }
+
+    /* TOGGLE SWITCH (sub-tab) */
+    .sub-toggle {
+      display: flex;
+      background: var(--surface2);
+      border: 1px solid var(--border2);
+      border-radius: 12px;
+      padding: 4px;
+      margin-bottom: 18px;
+      gap: 4px
+    }
+
+    .sub-btn {
+      flex: 1;
+      padding: 9px 0;
+      border: none;
+      border-radius: 8px;
+      background: transparent;
+      color: var(--text3);
+      font-family: 'Inter', sans-serif;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all .2s;
+      text-align: center
+    }
+
+    .sub-btn.active {
+      background: var(--p);
+      color: #fff;
+      box-shadow: 0 2px 12px var(--pglow)
+    }
+
+    /* DASHBOARD - VISUAL STATS */
+    .dash-hero {
+      text-align: center;
+      padding: 20px 0 8px
+    }
+
+    .dash-hero-num {
+      font-size: 64px;
+      font-weight: 900;
+      color: var(--p2);
+      text-shadow: 0 0 40px var(--pglow);
+      line-height: 1
+    }
+
+    .dash-hero-label {
+      font-size: 13px;
+      color: var(--text3);
+      font-weight: 600;
+      margin-top: 6px;
+      letter-spacing: .04em
+    }
+
+    .dash-stats-row {
+      display: flex;
+      gap: 8px;
+      margin: 16px 0
+    }
+
+    .dash-stat-card {
+      flex: 1;
+      background: var(--surface2);
+      border: 1px solid var(--border2);
+      border-radius: 14px;
+      padding: 14px 10px;
+      text-align: center;
+      transition: border-color .2s
+    }
+
+    .dash-stat-card:hover {
+      border-color: rgba(139, 92, 246, .3)
+    }
+
+    .dash-stat-lbl {
+      font-size: 10px;
+      color: var(--text3);
+      text-transform: uppercase;
+      letter-spacing: .06em;
+      font-weight: 600;
+      margin-bottom: 6px
+    }
+
+    .dash-stat-val {
+      font-size: 22px;
+      font-weight: 800;
+      color: var(--text)
+    }
+
+    .dash-stat-val span {
+      font-size: 13px;
+      color: var(--text3);
+      font-weight: 500
+    }
+
+    .dash-section-title {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--text2);
+      margin: 18px 0 10px;
+      letter-spacing: .02em
+    }
+
+    .dash-practice {
+      display: flex;
+      flex-direction: column;
+      gap: 10px
+    }
+
+    .dash-prac-item {
+      background: var(--surface2);
+      border: 1px solid var(--border2);
+      border-radius: 12px;
+      padding: 12px 14px;
+      display: flex;
+      align-items: center;
+      gap: 12px
+    }
+
+    .dash-prac-icon {
+      font-size: 20px;
+      width: 32px;
+      text-align: center;
+      flex-shrink: 0
+    }
+
+    .dash-prac-info {
+      flex: 1;
+      min-width: 0
+    }
+
+    .dash-prac-name {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--text2);
+      margin-bottom: 5px
+    }
+
+    .dash-prac-bar {
+      height: 6px;
+      background: var(--surface3);
+      border-radius: 4px;
+      overflow: hidden
+    }
+
+    .dash-prac-fill {
+      height: 100%;
+      border-radius: 4px;
+      transition: width .5s ease
+    }
+
+    .dash-prac-val {
+      font-size: 13px;
+      font-weight: 800;
+      color: var(--text);
+      min-width: 40px;
+      text-align: right
+    }
+
+    .dash-activity-chart {
+      background: var(--surface2);
+      border: 1px solid var(--border2);
+      border-radius: 16px;
+      padding: 18px 14px 12px
+    }
+
+    .dash-bars {
+      display: flex;
+      align-items: flex-end;
+      gap: 6px;
+      height: 130px;
+      padding: 0 4px
+    }
+
+    .dash-bar-col {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px
+    }
+
+    .dash-bar {
+      width: 100%;
+      border-radius: 6px 6px 2px 2px;
+      min-height: 4px;
+      transition: height .4s ease;
+      position: relative
+    }
+
+    .dash-bar.today {
+      box-shadow: 0 0 12px var(--pglow)
+    }
+
+    .dash-bar-val {
+      font-size: 9px;
+      color: var(--text3);
+      font-weight: 600;
+      position: absolute;
+      top: -16px;
+      left: 50%;
+      transform: translateX(-50%);
+      white-space: nowrap
+    }
+
+    .dash-bar-labels {
+      display: flex;
+      gap: 6px;
+      padding: 8px 4px 0
+    }
+
+    .dash-bar-lbl {
+      flex: 1;
+      text-align: center;
+      font-size: 10px;
+      color: var(--text3);
+      font-weight: 600
+    }
+
+    .dash-bar-lbl.today {
+      color: var(--p2);
+      font-weight: 800
+    }
+
+    /* RADAR CHART */
+    .radar-wrap {
+      padding: 10px 0 0;
+      position: relative
+    }
+
+    .radar-legend {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px 16px;
+      margin-top: 16px
+    }
+
+    .radar-leg-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 12px;
+      color: var(--text2);
+      font-weight: 500
+    }
+
+    .radar-leg-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      flex-shrink: 0
+    }
+
+    .radar-leg-val {
+      margin-left: auto;
+      font-weight: 700;
+      color: var(--text);
+      font-size: 13px
+    }
+
+    /* CIRCULAR RING */
+    .ring-section {
+      display: flex;
+      justify-content: center;
+      padding: 8px 0 22px
+    }
+
+    .ring-wrap {
+      position: relative;
+      width: 190px;
+      height: 190px
+    }
+
+    .ring-wrap svg {
+      transform: rotate(-90deg);
+      filter: drop-shadow(0 0 16px var(--pglow))
+    }
+
+    .ring-center {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 2px
+    }
+
+    .ring-number {
+      font-size: 44px;
+      font-weight: 800;
+      color: var(--text);
+      line-height: 1
+    }
+
+    .ring-unit {
+      font-size: 12px;
+      color: var(--text3);
+      font-weight: 400
+    }
+
+    .ring-label {
+      font-size: 10px;
+      color: var(--p2);
+      font-weight: 500;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+      margin-top: 2px
+    }
+
+    /* STATS */
+    .stats-row {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+      margin-bottom: 18px
+    }
+
+    .stat-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 14px 10px;
+      text-align: center;
+      transition: border-color .2s
+    }
+
+    .stat-card:hover {
+      border-color: var(--border2)
+    }
+
+    .stat-num {
+      font-size: 26px;
+      font-weight: 800;
+      color: var(--text);
+      line-height: 1
+    }
+
+    .stat-unit2 {
+      font-size: 11px;
+      color: var(--text3)
+    }
+
+    .stat-lbl {
+      font-size: 9px;
+      color: var(--text3);
+      font-weight: 500;
+      margin-top: 5px;
+      text-transform: uppercase;
+      letter-spacing: .08em
+    }
+
+    /* SEC HEADER */
+    .sec-hdr {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px
+    }
+
+    .sec-title {
+      font-size: 17px;
+      font-weight: 700;
+      color: var(--text)
+    }
+
+    .sec-action {
+      font-size: 13px;
+      color: var(--p2);
+      font-weight: 500;
+      cursor: pointer;
+      background: none;
+      border: none
+    }
+
+    /* GOAL CARDS */
+    .goal-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 14px;
+      margin-bottom: 9px
+    }
+
+    .goal-row2 {
+      display: flex;
+      align-items: center;
+      gap: 12px
+    }
+
+    .goal-icon {
+      width: 38px;
+      height: 38px;
+      border-radius: 10px;
+      background: var(--pglow3);
+      border: 1px solid rgba(139, 92, 246, .2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 17px;
+      flex-shrink: 0
+    }
+
+    .goal-info {
+      flex: 1
+    }
+
+    .goal-name {
+      font-size: 13px;
+      font-weight: 600;
+      margin-bottom: 6px
+    }
+
+    .goal-bar-track {
+      height: 4px;
+      background: var(--surface3);
+      border-radius: 2px;
+      overflow: hidden
+    }
+
+    .goal-bar-fill {
+      height: 100%;
+      border-radius: 2px;
+      background: var(--p);
+      box-shadow: 0 0 8px var(--pglow);
+      transition: width .6s ease
+    }
+
+    .goal-bar-fill.done {
+      background: var(--green);
+      box-shadow: 0 0 8px rgba(34, 197, 94, .4)
+    }
+
+    .goal-val {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--p2);
+      white-space: nowrap
+    }
+
+    .goal-val.done {
+      color: var(--green)
+    }
+
+    /* BAR CHART */
+    .bar-chart-wrap {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 18px;
+      margin-bottom: 14px
+    }
+
+    .bar-chart {
+      display: flex;
+      align-items: flex-end;
+      gap: 5px;
+      height: 80px
+    }
+
+    .bar-col {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 5px
+    }
+
+    .bar-track {
+      flex: 1;
+      width: 100%;
+      display: flex;
+      align-items: flex-end
+    }
+
+    .bar {
+      width: 100%;
+      border-radius: 4px 4px 0 0;
+      background: var(--surface3);
+      transition: height .5s ease;
+      min-height: 4px;
+      position: relative
+    }
+
+    .bar.active {
+      background: var(--p);
+      box-shadow: 0 0 12px var(--pglow), 0 0 24px var(--pglow2)
+    }
+
+    .bar.active::after {
+      content: '';
+      position: absolute;
+      top: -3px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--p2);
+      box-shadow: 0 0 8px var(--p)
+    }
+
+    .bar-day {
+      font-size: 9px;
+      color: var(--text3);
+      font-weight: 500
+    }
+
+    /* MOOD */
+    .mood-wrap {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 18px;
+      margin-bottom: 14px
+    }
+
+    .mood-bars {
+      display: flex;
+      gap: 6px;
+      align-items: flex-end;
+      height: 52px
+    }
+
+    .mood-b {
+      flex: 1;
+      border-radius: 3px 3px 0 0;
+      transition: all .4s ease;
+      min-height: 4px
+    }
+
+    .mood-days {
+      display: flex;
+      gap: 6px;
+      margin-top: 8px
+    }
+
+    .mood-dl {
+      flex: 1;
+      text-align: center;
+      font-size: 9px;
+      color: var(--text3);
+      font-weight: 500
+    }
+
+    /* HEATMAP */
+    .heatmap-grid {
+      display: flex;
+      gap: 3px;
+      flex-wrap: wrap
+    }
+
+    .hm-day {
+      width: 12px;
+      height: 12px;
+      border-radius: 3px;
+      background: var(--surface2);
+      transition: background .3s
+    }
+
+    .hm-day[data-l="1"] {
+      background: rgba(139, 92, 246, .2)
+    }
+
+    .hm-day[data-l="2"] {
+      background: rgba(139, 92, 246, .45)
+    }
+
+    .hm-day[data-l="3"] {
+      background: rgba(139, 92, 246, .7)
+    }
+
+    .hm-day[data-l="4"] {
+      background: var(--p);
+      box-shadow: 0 0 4px var(--pglow)
+    }
+
+    /* LOG ITEMS */
+    .log-list {
+      display: flex;
+      flex-direction: column
+    }
+
+    .log-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 12px 0;
+      border-bottom: 1px solid var(--border);
+      animation: fadeUp .3s ease
+    }
+
+    .log-item:last-child {
+      border-bottom: none
+    }
+
+    @keyframes fadeUp {
+      from {
+        opacity: 0;
+        transform: translateY(6px)
+      }
+
+      to {
+        opacity: 1;
+        transform: none
+      }
+    }
+
+    .log-icon {
+      width: 42px;
+      height: 42px;
+      border-radius: 10px;
+      background: var(--surface2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 17px;
+      flex-shrink: 0;
+      border: 1px solid var(--border2)
+    }
+
+    .log-main {
+      flex: 1;
+      min-width: 0
+    }
+
+    .log-title {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 0;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis
+    }
+
+    .log-sub {
+      font-size: 11px;
+      color: var(--text3);
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+      margin-top: 5px
+    }
+
+    .log-tag {
+      background: var(--surface2);
+      border: 1px solid var(--border2);
+      padding: 4px 8px;
+      border-radius: 6px;
+      transition: all .2s;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px
+    }
+
+    .log-tag.clickable {
+      cursor: pointer
+    }
+
+    .log-tag.clickable:hover {
+      border-color: var(--p);
+      color: var(--p2);
+      background: var(--pglow3);
+      box-shadow: 0 2px 8px var(--pglow3)
+    }
+
+    .log-right {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 4px
+    }
+
+    .log-comp-big {
+      font-size: 17px;
+      font-weight: 800;
+      color: var(--p2)
+    }
+
+    .log-delete {
+      background: none;
+      border: none;
+      color: var(--text3);
+      cursor: pointer;
+      font-size: 15px;
+      padding: 4px;
+      transition: color .2s
+    }
+
+    .log-delete:hover {
+      color: var(--red)
+    }
+
+    /* TIMER */
+    .timer-big {
+      text-align: center;
+      font-size: 58px;
+      font-weight: 800;
+      color: var(--text);
+      font-variant-numeric: tabular-nums;
+      letter-spacing: -.02em;
+      text-shadow: 0 0 30px var(--pglow);
+      padding: 20px 0 8px
+    }
+
+    .timer-status-txt {
+      text-align: center;
+      font-size: 13px;
+      color: var(--text3);
+      margin-bottom: 20px;
+      font-weight: 500
+    }
+
+    .timer-btns {
+      display: flex;
+      gap: 10px;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-bottom: 18px
+    }
+
+    /* CONTENT ITEM */
+    .content-item {
+      display: flex;
+      align-items: center;
+      gap: 13px;
+      padding: 13px 0;
+      border-bottom: 1px solid var(--border);
+      animation: fadeUp .3s ease
+    }
+
+    .content-item:last-child {
+      border-bottom: none
+    }
+
+    .content-thumb {
+      width: 50px;
+      height: 50px;
+      border-radius: 10px;
+      background: var(--surface2);
+      border: 1px solid var(--border2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 21px;
+      flex-shrink: 0
+    }
+
+    .content-info {
+      flex: 1;
+      min-width: 0
+    }
+
+    .content-title2 {
+      font-size: 14px;
+      font-weight: 600;
+      margin-bottom: 3px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis
+    }
+
+    .content-meta2 {
+      font-size: 11px;
+      color: var(--text3)
+    }
+
+    .content-comp2 {
+      font-size: 19px;
+      font-weight: 800;
+      color: var(--p2)
+    }
+
+    /* WEEKLY */
+    .week-days {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 6px;
+      margin-bottom: 18px
+    }
+
+    .week-day {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 9px 4px;
+      text-align: center
+    }
+
+    .week-day.today {
+      border-color: rgba(139, 92, 246, .4);
+      background: var(--pglow3)
+    }
+
+    .week-day.active .wd-dot {
+      background: var(--p);
+      box-shadow: 0 0 6px var(--pglow)
+    }
+
+    .wd-name {
+      font-size: 9px;
+      color: var(--text3);
+      font-weight: 600;
+      text-transform: uppercase;
+      margin-bottom: 7px
+    }
+
+    .wd-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--surface3);
+      margin: 0 auto 5px
+    }
+
+    .wd-comp {
+      font-size: 10px;
+      font-weight: 700;
+      color: var(--p2)
+    }
+
+    .week-stats {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 8px;
+      margin-bottom: 12px
+    }
+
+    .week-s {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 14px;
+      text-align: center
+    }
+
+    .week-s-val {
+      font-size: 26px;
+      font-weight: 800;
+      color: var(--text);
+      margin-bottom: 4px
+    }
+
+    .week-s-lbl {
+      font-size: 9px;
+      color: var(--text3);
+      text-transform: uppercase;
+      letter-spacing: .08em
+    }
+
+    .week-insight2 {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 16px;
+      font-size: 14px;
+      color: var(--text2);
+      line-height: 1.7;
+      margin-bottom: 14px
+    }
+
+    .week-insight2 strong {
+      color: var(--text)
+    }
+
+    /* FLASHCARD */
+    .flashcard-outer {
+      perspective: 1000px;
+      margin: 6px 0 14px
+    }
+
+    .flashcard {
+      width: 100%;
+      height: 192px;
+      position: relative;
+      transform-style: preserve-3d;
+      transition: transform .5s cubic-bezier(.4, 0, .2, 1);
+      cursor: pointer
+    }
+
+    .flashcard.flipped {
+      transform: rotateY(180deg)
+    }
+
+    .card-face {
+      position: absolute;
+      inset: 0;
+      backface-visibility: hidden;
+      border-radius: 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 26px
+    }
+
+    .card-front {
+      background: var(--surface);
+      border: 1px solid rgba(139, 92, 246, .25);
+      box-shadow: 0 0 40px var(--pglow2), inset 0 0 30px var(--pglow3)
+    }
+
+    .card-back {
+      transform: rotateY(180deg);
+      background: linear-gradient(135deg, #1a0a2e 0%, #0d0d1a 100%);
+      border: 1px solid rgba(139, 92, 246, .4);
+      box-shadow: 0 0 40px var(--pglow)
+    }
+
+    .card-word {
+      font-size: 34px;
+      font-weight: 800;
+      color: var(--text);
+      margin-bottom: 5px;
+      text-align: center
+    }
+
+    .card-pron {
+      font-size: 13px;
+      color: var(--p2);
+      margin-bottom: 7px
+    }
+
+    .card-tap {
+      font-size: 11px;
+      color: var(--text3)
+    }
+
+    .card-meaning {
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--p3);
+      text-align: center;
+      margin-bottom: 9px;
+      line-height: 1.4
+    }
+
+    .card-example {
+      font-size: 12px;
+      color: var(--text2);
+      text-align: center;
+      font-style: italic;
+      line-height: 1.5
+    }
+
+    .card-count {
+      font-size: 12px;
+      color: var(--text3);
+      font-weight: 500;
+      text-align: center;
+      margin-bottom: 8px
+    }
+
+    .card-controls {
+      display: flex;
+      gap: 10px;
+      justify-content: center;
+      margin-top: 4px
+    }
+
+    /* WORD LIST */
+    .word-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 11px 0;
+      border-bottom: 1px solid var(--border);
+      transition: opacity .2s
+    }
+
+    .word-item.learned {
+      opacity: .4
+    }
+
+    .word-item:last-child {
+      border-bottom: none
+    }
+
+    .word-w {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--p2);
+      min-width: 95px
+    }
+
+    .word-m {
+      font-size: 12px;
+      color: var(--text2);
+      flex: 1
+    }
+
+    .word-acts {
+      display: flex;
+      gap: 6px
+    }
+
+    /* CEFR */
+    .cefr-big-num {
+      font-size: 68px;
+      font-weight: 900;
+      text-align: center;
+      line-height: 1;
+      background: linear-gradient(135deg, var(--p2), var(--p3));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text
+    }
+
+    .cefr-name2 {
+      text-align: center;
+      font-size: 14px;
+      color: var(--text3);
+      margin-top: 4px;
+      margin-bottom: 22px;
+      font-weight: 500
+    }
+
+    .cefr-track2 {
+      height: 6px;
+      background: var(--surface3);
+      border-radius: 3px;
+      position: relative;
+      margin-bottom: 12px
+    }
+
+    .cefr-fill2 {
+      height: 100%;
+      border-radius: 3px;
+      background: linear-gradient(90deg, var(--blue), var(--p), var(--p2));
+      box-shadow: 0 0 10px var(--pglow);
+      transition: width .8s ease
+    }
+
+    .cefr-dot {
+      position: absolute;
+      top: -5px;
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      background: var(--p2);
+      transform: translateX(-50%);
+      box-shadow: 0 0 12px var(--p), 0 0 24px var(--pglow);
+      transition: left .8s ease
+    }
+
+    .cefr-lbls {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 20px
+    }
+
+    .cefr-l {
+      font-size: 11px;
+      color: var(--text3);
+      font-weight: 500
+    }
+
+    .cefr-l.active {
+      color: var(--p2);
+      font-weight: 700
+    }
+
+    .cefr-insight2 {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 16px;
+      font-size: 14px;
+      color: var(--text2);
+      line-height: 1.7
+    }
+
+    .cefr-insight2 strong {
+      color: var(--text)
+    }
+
+    /* QUIZ */
+    .quiz-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, .92);
+      z-index: 500;
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+      animation: fadeIn .25s ease
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0
+      }
+
+      to {
+        opacity: 1
+      }
+    }
+
+    .quiz-sheet {
+      background: var(--surface);
+      border-radius: 24px 24px 0 0;
+      padding: 24px 20px 40px;
+      width: 100%;
+      max-width: 500px;
+      max-height: 90vh;
+      overflow-y: auto;
+      border-top: 1px solid rgba(139, 92, 246, .3)
+    }
+
+    .quiz-title {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--p2);
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      margin-bottom: 6px
+    }
+
+    .quiz-q {
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 18px;
+      line-height: 1.4
+    }
+
+    .quiz-progress {
+      display: flex;
+      gap: 5px;
+      margin-bottom: 20px
+    }
+
+    .qpip {
+      flex: 1;
+      height: 4px;
+      border-radius: 2px;
+      background: var(--surface3);
+      transition: background .3s
+    }
+
+    .qpip.done {
+      background: var(--p)
+    }
+
+    .qpip.correct {
+      background: var(--green)
+    }
+
+    .qpip.wrong {
+      background: var(--red)
+    }
+
+    .quiz-opts {
+      display: flex;
+      flex-direction: column;
+      gap: 10px
+    }
+
+    .qopt {
+      background: var(--surface2);
+      border: 1px solid var(--border2);
+      border-radius: 12px;
+      padding: 14px 16px;
+      font-size: 14px;
+      font-weight: 500;
+      cursor: pointer;
+      text-align: left;
+      color: var(--text);
+      transition: all .2s;
+      width: 100%
+    }
+
+    .qopt:hover {
+      border-color: var(--p);
+      background: var(--pglow3)
+    }
+
+    .qopt.correct {
+      border-color: var(--green);
+      background: rgba(34, 197, 94, .1);
+      color: var(--green)
+    }
+
+    .qopt.wrong {
+      border-color: var(--red);
+      background: rgba(239, 68, 68, .1);
+      color: var(--red)
+    }
+
+    .quiz-close {
+      position: absolute;
+      top: 16px;
+      right: 20px;
+      background: none;
+      border: none;
+      color: var(--text3);
+      font-size: 22px;
+      cursor: pointer
+    }
+
+    .celebrate {
+      text-align: center;
+      padding: 20px 0
+    }
+
+    .celebrate-emoji {
+      font-size: 64px;
+      animation: bounce 0.6s ease infinite alternate
+    }
+
+    @keyframes bounce {
+      from {
+        transform: translateY(0)
+      }
+
+      to {
+        transform: translateY(-14px)
+      }
+    }
+
+    .celebrate-title {
+      font-size: 22px;
+      font-weight: 800;
+      color: var(--text);
+      margin: 14px 0 6px
+    }
+
+    .celebrate-sub {
+      font-size: 14px;
+      color: var(--text2)
+    }
+
+    .celebrate-score {
+      font-size: 48px;
+      font-weight: 900;
+      background: linear-gradient(135deg, var(--p2), var(--p3));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text
+    }
+
+    /* BADGES */
+    .badges-grid2 {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 9px
+    }
+
+    .badge-card2 {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 14px 9px;
+      text-align: center;
+      transition: all .3s
+    }
+
+    .badge-card2.earned {
+      border-color: rgba(139, 92, 246, .35);
+      background: var(--pglow3);
+      box-shadow: 0 0 20px var(--pglow3)
+    }
+
+    .badge-emoji {
+      font-size: 26px;
+      margin-bottom: 7px;
+      filter: grayscale(1) brightness(.4);
+      transition: filter .3s
+    }
+
+    .badge-card2.earned .badge-emoji {
+      filter: none
+    }
+
+    .badge-n {
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--text2);
+      margin-bottom: 2px
+    }
+
+    .badge-d {
+      font-size: 9px;
+      color: var(--text3);
+      line-height: 1.4
+    }
+
+    .badge-card2.earned .badge-n {
+      color: var(--text)
+    }
+
+    /* FORMS */
+    .form-section {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 18px;
+      margin-bottom: 14px
+    }
+
+    .form-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 11px
+    }
+
+    .fg {
+      display: flex;
+      flex-direction: column;
+      gap: 5px
+    }
+
+    .fg.full {
+      grid-column: 1/-1
+    }
+
+    .fg label {
+      font-size: 10px;
+      font-weight: 600;
+      color: var(--text3);
+      text-transform: uppercase;
+      letter-spacing: .06em
+    }
+
+    input,
+    select,
+    textarea {
+      background: var(--surface2);
+      border: 1px solid var(--border2);
+      color: var(--text);
+      padding: 10px 13px;
+      font-family: 'Inter', sans-serif;
+      font-size: 14px;
+      outline: none;
+      transition: border-color .2s, box-shadow .2s;
+      border-radius: 10px;
+      -webkit-appearance: none
+    }
+
+    input:focus,
+    select:focus,
+    textarea:focus {
+      border-color: var(--p);
+      box-shadow: 0 0 0 2px var(--pglow3)
+    }
+
+    input[type=range] {
+      padding: 0;
+      height: 4px;
+      accent-color: var(--p);
+      background: var(--surface3);
+      cursor: pointer;
+      border: none;
+      box-shadow: none;
+      border-radius: 2px
+    }
+
+    textarea {
+      resize: vertical;
+      min-height: 56px
+    }
+
+    select option {
+      background: var(--surface2)
+    }
+
+    .range-display {
+      font-size: 21px;
+      font-weight: 800;
+      color: var(--p2);
+      text-align: center;
+      margin: 4px 0
+    }
+
+    /* BUTTONS */
+    .btn-primary {
+      width: 100%;
+      grid-column: 1/-1;
+      background: var(--p);
+      color: #fff;
+      border: none;
+      padding: 13px;
+      font-family: 'Inter', sans-serif;
+      font-size: 14px;
+      font-weight: 700;
+      border-radius: 14px;
+      cursor: pointer;
+      box-shadow: 0 4px 20px var(--pglow);
+      transition: all .2s;
+      letter-spacing: .01em
+    }
+
+    .btn-primary:hover {
+      background: var(--p2);
+      box-shadow: 0 6px 28px var(--pglow)
+    }
+
+    .btn-primary:active {
+      transform: scale(.99)
+    }
+
+    .btn-ghost {
+      background: var(--surface2);
+      color: var(--text2);
+      border: 1px solid var(--border2);
+      padding: 9px 16px;
+      font-family: 'Inter', sans-serif;
+      font-size: 13px;
+      font-weight: 600;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: all .2s
+    }
+
+    .btn-ghost:hover {
+      border-color: var(--p);
+      color: var(--p2)
+    }
+
+    .btn-ghost.active {
+      background: var(--pglow3);
+      border-color: rgba(139, 92, 246, .35);
+      color: var(--p2)
+    }
+
+    .btn-icon {
+      background: var(--surface2);
+      border: 1px solid var(--border2);
+      color: var(--text2);
+      width: 36px;
+      height: 36px;
+      border-radius: 10px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 15px;
+      transition: all .2s
+    }
+
+    .btn-icon:hover {
+      border-color: var(--p);
+      color: var(--p2)
+    }
+
+    /* QUOTE CARD */
+    .quote-card {
+      background: var(--surface2);
+      border: 1px solid var(--border2);
+      border-radius: 14px;
+      padding: 16px 16px 16px 36px;
+      margin-bottom: 20px;
+      position: relative;
+      overflow: hidden
+    }
+
+    .quote-card::before {
+      content: '"';
+      position: absolute;
+      top: 6px;
+      left: 10px;
+      font-size: 46px;
+      font-family: serif;
+      color: var(--p);
+      opacity: 0.25;
+      line-height: 1
+    }
+
+    .quote-en {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--p2);
+      margin-bottom: 4px;
+      line-height: 1.4;
+      position: relative;
+      z-index: 2;
+      font-style: italic
+    }
+
+    .quote-mn {
+      font-size: 12px;
+      color: var(--text3);
+      font-weight: 500;
+      line-height: 1.3;
+      position: relative;
+      z-index: 2
+    }
+
+    .btn-icon.learned {
+      border-color: var(--green);
+      color: var(--green);
+      background: rgba(34, 197, 94, .08)
+    }
+
+    .btn-sm {
+      background: var(--pglow3);
+      color: var(--p2);
+      border: 1px solid rgba(139, 92, 246, .25);
+      padding: 7px 14px;
+      font-family: 'Inter', sans-serif;
+      font-size: 12px;
+      font-weight: 600;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all .2s;
+      white-space: nowrap
+    }
+
+    .btn-sm:hover {
+      background: var(--pglow2);
+      border-color: var(--p)
+    }
+
+    .btn-sm.danger {
+      background: rgba(239, 68, 68, .08);
+      color: var(--red);
+      border-color: rgba(239, 68, 68, .2)
+    }
+
+    .btn-green {
+      background: rgba(34, 197, 94, .1);
+      color: var(--green);
+      border: 1px solid rgba(34, 197, 94, .25);
+      padding: 9px 20px;
+      font-family: 'Inter', sans-serif;
+      font-size: 13px;
+      font-weight: 700;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: all .2s
+    }
+
+    .btn-green:hover {
+      background: rgba(34, 197, 94, .2)
+    }
+
+    /* SRS & ANIMATIONS */
+    .btn-srs {
+      flex: 1;
+      border: none;
+      border-radius: 12px;
+      padding: 8px 0;
+      font-family: 'Inter', sans-serif;
+      cursor: pointer;
+      transition: transform .1s, filter .2s;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center
+    }
+
+    .btn-srs:active {
+      transform: scale(.94)
+    }
+
+    .srs-lbl {
+      font-size: 13px;
+      font-weight: 700;
+      margin-bottom: 2px
+    }
+
+    .srs-time {
+      font-size: 10px;
+      opacity: 0.8;
+      font-weight: 500
+    }
+
+    .srs-again {
+      background: rgba(239, 68, 68, .15);
+      color: var(--red);
+      border: 1px solid rgba(239, 68, 68, .3)
+    }
+
+    .srs-hard {
+      background: rgba(249, 115, 22, .15);
+      color: var(--orange);
+      border: 1px solid rgba(249, 115, 22, .3)
+    }
+
+    .srs-good {
+      background: rgba(59, 130, 246, .15);
+      color: var(--blue);
+      border: 1px solid rgba(59, 130, 246, .3)
+    }
+
+    .srs-easy {
+      background: rgba(34, 197, 94, .15);
+      color: var(--green);
+      border: 1px solid rgba(34, 197, 94, .3)
+    }
+
+    .float-emoji {
+      position: fixed;
+      font-size: 32px;
+      pointer-events: none;
+      z-index: 9999;
+      animation: floatUp 1.2s cubic-bezier(.25, .8, .25, 1) forwards;
+      filter: drop-shadow(0 4px 10px rgba(0, 0, 0, 0.5))
+    }
+
+    @keyframes floatUp {
+      0% {
+        transform: translateY(0) scale(0.5);
+        opacity: 0
+      }
+
+      20% {
+        transform: translateY(-20px) scale(1.2);
+        opacity: 1
+      }
+
+      80% {
+        transform: translateY(-60px) scale(1);
+        opacity: 1
+      }
+
+      100% {
+        transform: translateY(-80px) scale(0.8);
+        opacity: 0
+      }
+    }
+
+    /* WORD AUTO-FETCH ROW */
+    /* PLANT FILTER CARDS */
+    .plant-filter-card{background:var(--surface2);border:2px solid var(--border2);border-radius:16px;padding:14px 8px;text-align:center;transition:all .2s;position:relative;overflow:hidden}
+    .plant-filter-card:active{transform:scale(.96)}
+    .plant-filter-card.active-seed{border-color:rgba(249,115,22,.5);background:rgba(249,115,22,.08);box-shadow:0 0 18px rgba(249,115,22,.2)}
+    .plant-filter-card.active-sprout{border-color:rgba(59,130,246,.5);background:rgba(59,130,246,.08);box-shadow:0 0 18px rgba(59,130,246,.2)}
+    .plant-filter-card.active-tree{border-color:rgba(34,197,94,.5);background:rgba(34,197,94,.08);box-shadow:0 0 18px rgba(34,197,94,.2)}
+    .pf-emoji{font-size:34px;margin-bottom:5px;line-height:1;filter:drop-shadow(0 2px 8px rgba(0,0,0,.4))}
+    .pf-count{font-size:26px;font-weight:900;color:var(--text);line-height:1;margin-bottom:2px}
+    .pf-label{font-size:11px;font-weight:700;color:var(--text2);margin-bottom:1px}
+    .pf-sub{font-size:9px;color:var(--text3);font-weight:500;text-transform:uppercase;letter-spacing:.04em}
+    #pf-seed .pf-count{color:var(--orange)}
+    #pf-sprout .pf-count{color:var(--blue)}
+    #pf-tree .pf-count{color:var(--green)}
+
+    .word-input-row {
+      display: flex;
+      gap: 8px;
+      align-items: flex-end
+    }
+
+    .word-input-row input {
+      flex: 1
+    }
+
+    /* REMINDER */
+    .rem-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 11px 0;
+      border-bottom: 1px solid var(--border)
+    }
+
+    .rem-item:last-child {
+      border-bottom: none
+    }
+
+    .rem-time {
+      font-size: 19px;
+      font-weight: 800;
+      color: var(--text);
+      min-width: 68px
+    }
+
+    .rem-lbl {
+      font-size: 13px;
+      color: var(--text3);
+      flex: 1
+    }
+
+    .toggle {
+      width: 44px;
+      height: 24px;
+      background: var(--surface3);
+      border-radius: 12px;
+      position: relative;
+      cursor: pointer;
+      transition: background .25s;
+      border: none;
+      flex-shrink: 0
+    }
+
+    .toggle.on {
+      background: var(--p);
+      box-shadow: 0 0 10px var(--pglow)
+    }
+
+    .toggle::after {
+      content: '';
+      position: absolute;
+      top: 3px;
+      left: 3px;
+      width: 18px;
+      height: 18px;
+      background: #fff;
+      border-radius: 50%;
+      transition: left .25s
+    }
+
+    .toggle.on::after {
+      left: 23px
+    }
+
+    /* TOAST */
+    .toast {
+      position: fixed;
+      bottom: 90px;
+      left: 50%;
+      transform: translateX(-50%) translateY(16px);
+      background: var(--p);
+      color: #fff;
+      font-size: 13px;
+      font-weight: 600;
+      padding: 10px 20px;
+      border-radius: 20px;
+      z-index: 1000;
+      opacity: 0;
+      transition: all .3s;
+      pointer-events: none;
+      white-space: nowrap;
+      box-shadow: 0 4px 20px var(--pglow)
+    }
+
+    .toast.show {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0)
+    }
+
+    /* LOADING */
+    .loading-dot {
+      display: inline-block;
+      animation: pulse 1s ease infinite
+    }
+
+    @keyframes pulse {
+
+      0%,
+      100% {
+        opacity: .3
+      }
+
+      50% {
+        opacity: 1
+      }
+    }
+
+    /* EMPTY */
+    .empty {
+      text-align: center;
+      color: var(--text3);
+      font-size: 13px;
+      padding: 36px 0;
+      font-weight: 500
+    }
+
+    /* BOTTOM NAV */
+    .bottom-nav {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: rgba(0, 0, 0, .95);
+      border-top: 1px solid var(--border);
+      display: flex;
+      z-index: 200;
+      backdrop-filter: blur(20px);
+      padding-bottom: env(safe-area-inset-bottom)
+    }
+
+    .nav-btn {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 10px 0;
+      cursor: pointer;
+      color: var(--text3);
+      font-size: 8px;
+      font-weight: 600;
+      gap: 4px;
+      border: none;
+      background: none;
+      transition: color .2s;
+      text-transform: uppercase;
+      letter-spacing: .04em
+    }
+
+    .nav-btn.active {
+      color: var(--p2)
+    }
+
+    .nav-icon {
+      font-size: 19px
+    }
+
+    /* BULK PASTE */
+    .bulk-area {
+      background: var(--surface2);
+      border: 1px solid var(--border2);
+      color: var(--text);
+      padding: 12px;
+      font-family: 'Inter', monospace;
+      font-size: 12px;
+      border-radius: 10px;
+      width: 100%;
+      min-height: 80px;
+      resize: vertical;
+      outline: none;
+      transition: border-color .2s
+    }
+
+    .bulk-area:focus {
+      border-color: var(--p)
+    }
+
+    @media(max-width:400px) {
+      .stats-row {
+        grid-template-columns: repeat(3, 1fr)
+      }
+
+      .form-grid {
+        grid-template-columns: 1fr
+      }
+
+      .fg.full {
+        grid-column: 1
+      }
+
+      .btn-primary {
+        grid-column: 1
+      }
+
+      .badges-grid2 {
+        grid-template-columns: repeat(3, 1fr)
+      }
+
+      .week-days {
+        gap: 4px
+      }
+
+      .week-day {
+        padding: 7px 3px
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- HEADER -->
+  <div class="hdr">
+    <div class="hdr-logo">ENG / YESKO</div>
+    <div class="hdr-right">
+      <div class="badge badge-level" id="levelBadge">A2</div>
+      <div class="badge badge-streak" id="streakBadge">🔥 0</div>
+    </div>
+  </div>
+
+  <!-- ═══════ LEARN SECTION ═══════ -->
+  <div id="main-learn" class="main-section active">
+    <div class="section-tabs">
+      <button class="section-tab active" id="lt-home" onclick="switchLearn('home')">🏠 Home</button>
+      <button class="section-tab" id="lt-action" onclick="switchLearn('action')">📝 Log</button>
+      <button class="section-tab" id="lt-review" onclick="switchLearn('review')">📖 Word</button>
+    </div>
+
+    <!-- HOME -->
+    <div id="tab-home" class="tab-content active">
+      <div class="container">
+        <div class="ring-section">
+          <div class="ring-wrap">
+            <svg width="190" height="190" viewBox="0 0 190 190">
+              <circle cx="95" cy="95" r="78" fill="none" stroke="#1a1a1a" stroke-width="10" />
+              <circle cx="95" cy="95" r="78" fill="none" stroke="rgba(139,92,246,0.1)" stroke-width="10"
+                stroke-dasharray="2 4.9" />
+              <circle id="ringArc" cx="95" cy="95" r="78" fill="none" stroke="url(#rg)" stroke-width="10"
+                stroke-linecap="round" stroke-dasharray="490.09" stroke-dashoffset="490.09"
+                style="transition:stroke-dashoffset .9s cubic-bezier(.4,0,.2,1)" />
+              <defs>
+                <linearGradient id="rg" x1="0%" y1="0%" x2="100%" y2="0%">
+                  <stop offset="0%" stop-color="#6d28d9" />
+                  <stop offset="100%" stop-color="#c4b5fd" />
+                </linearGradient>
+              </defs>
+            </svg>
+            <div class="ring-center">
+              <div class="ring-number" id="ringPct">0%</div>
+              <div class="ring-unit">today</div>
+              <div class="ring-label">goal</div>
+            </div>
+          </div>
+        </div>
+        <div class="stats-row">
+          <div class="stat-card">
+            <div class="stat-num" id="s-days">0</div>
+            <div class="stat-lbl">Days</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-num" id="s-comp">0<span class="stat-unit2">%</span></div>
+            <div class="stat-lbl">Avg Comp</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-num" id="s-words">0</div>
+            <div class="stat-lbl">Words</div>
+          </div>
+        </div>
+        <!-- DAILY QUOTE -->
+        <div class="quote-card" id="quoteCard">
+          <div class="quote-en" id="quoteEn">Loading quote...</div>
+          <div class="quote-mn" id="quoteMn">Мэдээлэл уншиж байна...</div>
+        </div>
+        <div class="sec-hdr">
+          <div class="sec-title">Today's Goals</div>
+        </div>
+        <div id="goalCards"></div>
+        <div class="mood-wrap">
+          <div class="sec-hdr" style="margin-bottom:12px">
+            <div class="sec-title">Mood This Week</div>
+          </div>
+          <div class="mood-bars" id="moodBars"></div>
+          <div class="mood-days" id="moodDays"></div>
+        </div>
+        <div class="bar-chart-wrap">
+          <div class="sec-hdr" style="margin-bottom:12px">
+            <div class="sec-title">Comprehension</div><span style="font-size:12px;color:var(--text3)">14 days</span>
+          </div>
+          <div class="bar-chart" id="barChart"></div>
+        </div>
+        <div class="form-section" style="margin-bottom:14px">
+          <div class="sec-hdr" style="margin-bottom:12px">
+            <div class="sec-title">Activity</div><span style="font-size:12px;color:var(--text3)">90 days</span>
+          </div>
+          <div class="heatmap-grid" id="heatmap"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ACTION (merged Log+Timer+Content) -->
+    <div id="tab-action" class="tab-content">
+      <div class="container">
+        <div class="sub-toggle">
+          <button class="sub-btn active" id="aBtn-timer" onclick="switchAction('timer')">⏱ Timer</button>
+          <button class="sub-btn" id="aBtn-manual" onclick="switchAction('manual')">📝 Manual Log</button>
+          <button class="sub-btn" id="aBtn-content" onclick="switchAction('content')">🎬 Content</button>
+        </div>
+
+        <!-- TIMER SUB -->
+        <div id="action-timer">
+          <div class="timer-big" id="timerDisplay">00:00:00</div>
+          <div class="timer-status-txt" id="timerStatus">Ready to start</div>
+          <div class="timer-btns">
+            <button class="btn-ghost" id="timerBtn" onclick="timerToggle()"
+              style="padding:11px 28px;font-size:14px;font-weight:700">▶ Start</button>
+            <button class="btn-ghost" onclick="timerReset()" style="padding:11px 20px">↺ Reset</button>
+            <button class="btn-green" onclick="timerSave()">✓ Save & Log</button>
+          </div>
+          <div class="sec-hdr">
+            <div class="sec-title">Sessions</div>
+          </div>
+          <div class="log-list" id="sessionList"></div>
+        </div>
+
+        <!-- MANUAL LOG SUB -->
+        <div id="action-manual" style="display:none">
+          <div class="form-section">
+            <div class="form-grid">
+              <div class="fg"><label>Date</label><input type="date" id="logDate"></div>
+              <div class="fg"><label>Activity</label>
+                <select id="logType">
+                  <option>Subtitle</option>
+                  <option>Video</option>
+                  <option>Reading</option>
+                  <option>Speaking</option>
+                  <option>Listening</option>
+                  <option>Shadowing 🗣️</option>
+                  <option>App</option>
+                  <option>Other</option>
+                </select>
+              </div>
+              <div class="fg full">
+                <label>Comprehension</label>
+                <input type="range" id="logComp" min="0" max="100" value="70">
+                <div class="range-display" id="compVal">70%</div>
+              </div>
+              <div class="fg full">
+                <label>Mood / Motivation</label>
+                <input type="range" id="logMood" min="1" max="10" value="7">
+                <div class="range-display" id="moodVal" style="color:var(--orange)">7 / 10</div>
+              </div>
+              <div class="fg"><label>New Words</label><input type="number" id="logWords" min="0" value="0"></div>
+              <div class="fg"><label>Pronunciation /10</label><input type="number" id="logPron" min="0" max="10"
+                  value="6"></div>
+              <div class="fg"><label>Study Minutes</label><input type="number" id="logMins" min="0" value="0"
+                  id="logMins"></div>
+              <div class="fg"><label>Content</label><input type="text" id="logContent" placeholder="Friends S1E1...">
+              </div>
+              <div class="fg full"><label>Note</label><textarea id="logNote"
+                  placeholder="What did you notice today?"></textarea></div>
+              <button class="btn-primary" onclick="addLog()">Save Entry</button>
+            </div>
+          </div>
+          <div class="sec-hdr">
+            <div class="sec-title">All Logs</div><button class="btn-ghost" onclick="exportCSV()"
+              style="padding:7px 14px;font-size:12px">↓ Export</button>
+          </div>
+          <div class="log-list" id="logList"></div>
+        </div>
+
+        <!-- CONTENT SUB -->
+        <div id="action-content" style="display:none">
+          <div class="form-section">
+            <div class="form-grid">
+              <div class="fg full"><label>Title</label><input type="text" id="cTitle"
+                  placeholder="Friends, BBC News, TED..."></div>
+              <div class="fg"><label>Type</label>
+                <select id="cType">
+                  <option>Series</option>
+                  <option>Movie</option>
+                  <option>TED Talk</option>
+                  <option>Podcast</option>
+                  <option>YouTube</option>
+                  <option>News</option>
+                  <option>Other</option>
+                </select>
+              </div>
+              <div class="fg"><label>Episode</label><input type="text" id="cEp" placeholder="S1E3"></div>
+              <div class="fg full">
+                <label>Comprehension</label>
+                <input type="range" id="cComp" min="0" max="100" value="70">
+                <div class="range-display" id="cCompVal">70%</div>
+              </div>
+              <div class="fg"><label>Date</label><input type="date" id="cDate"></div>
+              <div class="fg"><label>Words learned</label><input type="number" id="cWords" min="0" value="0"></div>
+              <div class="fg full"><label>Notes</label><textarea id="cNote"
+                  placeholder="Interesting phrases..."></textarea></div>
+              <button class="btn-primary" onclick="addContent()">Add Content</button>
+            </div>
+          </div>
+          <div class="sec-hdr">
+            <div class="sec-title">History</div>
+          </div>
+          <div id="contentList" class="log-list"></div>
+        </div>
+
+        <!-- WORD+ — full word management inside Log tab -->
+        <div id="quickWordUI" style="margin-top:20px">
+          <button id="qWordToggleBtn" onclick="toggleQWordForm(true)"
+            style="width:100%;padding:16px;border:2px dashed rgba(139,92,246,.3);border-radius:14px;background:rgba(139,92,246,.05);color:var(--p2);font-family:'Inter',sans-serif;font-size:15px;font-weight:700;cursor:pointer;transition:all .25s;display:flex;align-items:center;justify-content:center;gap:8px">
+            <span style="font-size:20px">📖</span> Word +
+          </button>
+          <div id="qWordForm" style="display:none;animation:fadeUp .3s ease">
+            <!-- Header with close -->
+            <div class="sec-hdr" style="margin:14px 0 10px">
+              <div class="sec-title" style="display:flex;align-items:center;gap:8px"><span>📖</span> Words</div>
+              <button class="sec-action" onclick="toggleQWordForm(false)" style="font-size:18px;padding:4px 8px">✕
+                Хаах</button>
+            </div>
+
+            <!-- FLASHCARD -->
+            <div class="card-count" id="cardCount"
+              style="color:var(--text3);font-size:12px;font-weight:700;text-align:center;margin-bottom:6px;background:var(--surface2);padding:6px;border-radius:8px">
+            </div>
+            <div class="flashcard-outer">
+              <div class="flashcard" id="flashcard" onclick="flipCard()">
+                <div class="card-face card-front">
+                  <div class="card-word" id="cf-word">Add a word</div>
+                  <div class="card-pron" id="cf-pron"></div>
+                  <div class="card-tap">Tap to flip 👆</div>
+                </div>
+                <div class="card-face card-back">
+                  <div class="card-meaning" id="cb-mean">—</div>
+                  <div class="card-example" id="cb-ex"></div>
+                </div>
+              </div>
+            </div>
+
+            <!-- SRS CONTROLS (Hidden until flipped) -->
+            <div id="srsControls" style="display:none;gap:6px;margin-top:14px">
+              <button class="btn-srs srs-again" onclick="answerSRS(0)">
+                <div class="srs-lbl">Again</div>
+                <div class="srs-time">&lt;1m</div>
+              </button>
+              <button class="btn-srs srs-hard" onclick="answerSRS(1)">
+                <div class="srs-lbl">Hard</div>
+                <div class="srs-time" id="t-hard">1d</div>
+              </button>
+              <button class="btn-srs srs-good" onclick="answerSRS(2)">
+                <div class="srs-lbl">Good</div>
+                <div class="srs-time" id="t-good">3d</div>
+              </button>
+              <button class="btn-srs srs-easy" onclick="answerSRS(3)">
+                <div class="srs-lbl">Easy</div>
+                <div class="srs-time" id="t-easy">7d</div>
+              </button>
+            </div>
+
+            <!-- ADD WORD -->
+            <div style="margin:22px 0 10px">
+              <div class="sec-title">Add Word</div>
+            </div>
+            <div class="form-section">
+              <div class="form-grid">
+                <div class="fg full">
+                  <label>Word</label>
+                  <div class="word-input-row">
+                    <input type="text" id="wWord" placeholder="enormous" oninput="clearAutoFetch()">
+                    <button class="btn-sm" onclick="autoFetchWord()" id="fetchBtn" style="height:42px">✨ Auto</button>
+                  </div>
+                </div>
+                <div class="fg"><label>Pronunciation</label><input type="text" id="wPron" placeholder="/ɪˈnɔːrməs/">
+                </div>
+                <div class="fg"><label>Mongolian Meaning</label><input type="text" id="wMean" placeholder="маш том">
+                </div>
+                <div class="fg full"><label>Example</label><textarea id="wEx"
+                    placeholder="That is an enormous building." style="min-height:42px"></textarea></div>
+                <button class="btn-primary" onclick="addWord()">Add Word</button>
+              </div>
+            </div>
+
+            <!-- BULK AI PASTE -->
+            <div style="margin:6px 0 10px">
+              <div class="sec-hdr">
+                <div class="sec-title" style="font-size:15px">AI Batch Import</div>
+                <button class="btn-sm" onclick="copyAIPrompt()">📋 Copy AI Prompt</button>
+              </div>
+              <div style="margin-bottom:8px;font-size:12px;color:var(--text3)">Paste JSON from AI (ChatGPT, Claude,
+                etc.):</div>
+              <textarea class="bulk-area" id="bulkPaste"
+                placeholder='[{"word":"...","pron":"...","mean":"Монгол","ex":"Example sentence"}]'></textarea>
+              <div style="display:flex;gap:8px;margin-top:10px">
+                <button class="btn-primary" style="flex:1" onclick="importBulk()">Import Words</button>
+              </div>
+            </div>
+
+            <!-- ALL WORDS LIST -->
+            <div class="sec-hdr" style="margin-top:14px">
+              <div class="sec-title">All Words</div><span id="wordStats"
+                style="font-size:12px;color:var(--text3);font-weight:500"></span>
+            </div>
+            <div class="log-list" id="wordList"></div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- 🔁 REVIEW TAB — dedicated SRS review screen inside main-learn -->
+    <div id="tab-review" class="tab-content">
+      <div class="container">
+        <!-- Review Header -->
+        <div id="reviewHeader" style="margin-bottom:16px">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">
+            <div style="font-size:13px;font-weight:700;color:var(--text2)">🔁 Өнөөдрийн давтамж</div>
+            <div id="reviewProgress" style="font-size:12px;color:var(--text3);font-weight:600"></div>
+          </div>
+          <div id="reviewProgressBar" style="height:5px;background:var(--surface3);border-radius:3px;overflow:hidden;margin-bottom:4px">
+            <div id="reviewProgressFill" style="height:100%;background:var(--p);border-radius:3px;transition:width .5s ease;width:0%"></div>
+          </div>
+          <div id="reviewQueueInfo" style="font-size:11px;color:var(--text3);text-align:center;padding:4px 0"></div>
+        </div>
+
+        <!-- Review Flashcard -->
+        <div class="flashcard-outer" id="reviewCardOuter">
+          <div class="flashcard" id="reviewCard" onclick="flipReviewCard()">
+            <div class="card-face card-front">
+              <div id="rv-state" style="font-size:11px;color:var(--text3);margin-bottom:6px"></div>
+              <div class="card-word" id="rv-word">—</div>
+              <div class="card-pron" id="rv-pron"></div>
+              <div class="card-tap">Tap to flip 👆</div>
+            </div>
+            <div class="card-face card-back">
+              <div class="card-meaning" id="rv-mean">—</div>
+              <div class="card-example" id="rv-ex"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- SRS Rating Buttons (shown after flip) -->
+        <div id="reviewSrsControls" style="display:none;gap:8px;margin-top:14px">
+          <button class="btn-srs srs-again" onclick="reviewAnswer(0)" style="padding:12px 0">
+            <div class="srs-lbl">Again</div><div class="srs-time">&lt;1m</div>
+          </button>
+          <button class="btn-srs srs-hard" onclick="reviewAnswer(1)" style="padding:12px 0">
+            <div class="srs-lbl">Hard</div><div class="srs-time" id="rv-t-hard">1d</div>
+          </button>
+          <button class="btn-srs srs-good" onclick="reviewAnswer(2)" style="padding:12px 0">
+            <div class="srs-lbl">Good</div><div class="srs-time" id="rv-t-good">3d</div>
+          </button>
+          <button class="btn-srs srs-easy" onclick="reviewAnswer(3)" style="padding:12px 0">
+            <div class="srs-lbl">Easy</div><div class="srs-time" id="rv-t-easy">7d</div>
+          </button>
+        </div>
+
+        <!-- Review Complete: Farmer Harvest Scene -->
+        <div id="reviewComplete" style="display:none;text-align:center;padding:20px 0">
+          <div style="font-size:22px;font-weight:900;color:var(--text);margin-bottom:16px">Бүх давтамж дууслаа!</div>
+          <!-- Harvest Scene -->
+          <div id="harvestScene" style="position:relative;height:200px;overflow:hidden;margin-bottom:20px;border-radius:16px;background:linear-gradient(180deg,#0a1628 0%,#1a0a2e 100%);border:1px solid rgba(34,197,94,.2)">
+            <!-- Ground -->
+            <div style="position:absolute;bottom:0;left:0;right:0;height:40px;background:linear-gradient(180deg,#1a3a1a 0%,#0d1f0d 100%);border-radius:0 0 16px 16px"></div>
+            <!-- Tree -->
+            <div id="harvestTree" style="position:absolute;bottom:30px;left:50%;transform:translateX(-50%);text-align:center">
+              <div style="font-size:70px;filter:drop-shadow(0 4px 12px rgba(34,197,94,.4))">🌳</div>
+            </div>
+            <!-- Apples on tree -->
+            <div id="harvestApples" style="position:absolute;bottom:100px;left:50%;transform:translateX(-50%);display:flex;gap:2px;flex-wrap:wrap;justify-content:center;width:80px"></div>
+            <!-- Farmer (starts off screen left) -->
+            <div id="farmer" style="position:absolute;bottom:32px;left:-60px;transition:left 1.5s cubic-bezier(.4,0,.2,1);font-size:48px;filter:drop-shadow(0 2px 8px rgba(0,0,0,.5))">🧑‍🌾</div>
+            <!-- Farmer speech bubble -->
+            <div id="farmerSpeech" style="position:absolute;bottom:90px;left:-200px;background:#fff;border:2px solid var(--border);border-radius:16px;border-bottom-left-radius:4px;padding:12px 16px;font-size:14px;font-weight:800;color:#111;white-space:nowrap;opacity:0;transition:opacity .5s,left 1.5s cubic-bezier(.4,0,.2,1);box-shadow:0 4px 12px rgba(0,0,0,0.3);z-index:2"></div>
+          </div>
+          <div id="reviewSummary" style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:24px"></div>
+          <button class="btn-primary" onclick="switchLearn('home')" style="width:100%">🏠 Home руу буцах</button>
+        </div>
+
+        <!-- Word List with Plant Filters -->
+        <div id="reviewWordList" style="margin-top:22px">
+          <!-- Plant Filter Cards -->
+          <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:16px" id="plantFilters">
+            <div class="plant-filter-card" id="pf-seed" onclick="setReviewFilter('seed')" style="cursor:pointer;position:relative">
+              <div class="pf-emoji">🌱</div>
+              <div class="pf-count" id="pf-seed-count">0</div>
+              <div class="pf-label">Шинэ</div>
+              <div class="pf-sub">Due now</div>
+              <div id="dictArrow-seed" onclick="event.stopPropagation();toggleDictionary('seed')" style="position:absolute;bottom:4px;right:4px;width:24px;height:24px;border-radius:50%;background:rgba(249,115,22,.2);border:1px solid rgba(249,115,22,.3);display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:12px;color:var(--orange);transition:transform .3s">▼</div>
+            </div>
+            <div class="plant-filter-card" id="pf-sprout" onclick="setReviewFilter('sprout')" style="cursor:pointer;position:relative">
+              <div class="pf-emoji">🌿</div>
+              <div class="pf-count" id="pf-sprout-count">0</div>
+              <div class="pf-label">Сурч буй</div>
+              <div class="pf-sub">Learning</div>
+              <div id="dictArrow-sprout" onclick="event.stopPropagation();toggleDictionary('sprout')" style="position:absolute;bottom:4px;right:4px;width:24px;height:24px;border-radius:50%;background:rgba(59,130,246,.2);border:1px solid rgba(59,130,246,.3);display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:12px;color:var(--blue);transition:transform .3s">▼</div>
+            </div>
+            <div class="plant-filter-card" id="pf-tree" onclick="setReviewFilter('tree')" style="cursor:pointer;position:relative">
+              <div class="pf-emoji">🌳</div>
+              <div class="pf-count" id="pf-tree-count">0</div>
+              <div class="pf-label">Цээжилсэн</div>
+              <div class="pf-sub">Mastered</div>
+              <div id="dictArrow-tree" onclick="event.stopPropagation();toggleDictionary('tree')" style="position:absolute;bottom:4px;right:4px;width:24px;height:24px;border-radius:50%;background:rgba(34,197,94,.2);border:1px solid rgba(34,197,94,.3);display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:12px;color:var(--green);transition:transform .3s">▼</div>
+            </div>
+          </div>
+
+          <!-- Expandable Dictionary Panel -->
+          <div id="dictPanel" style="display:none;animation:fadeUp .3s ease">
+            <div id="dictPanelInner" style="background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:16px;margin-bottom:16px">
+              <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px">
+                <div id="dictPanelTitle" style="font-size:15px;font-weight:800;color:var(--text);display:flex;align-items:center;gap:8px">📖 Миний Толь</div>
+                <div id="dictTotal" style="font-size:12px;color:var(--text3);font-weight:600"></div>
+              </div>
+              <input type="text" id="dictSearch" placeholder="🔍 Үг хайх..." oninput="renderDictionary()" style="width:100%;margin-bottom:12px;background:var(--surface2);border:1px solid var(--border2);border-radius:10px;padding:10px 14px;font-size:13px;color:var(--text);display:none;">
+              <div id="dictContent" style="max-height:400px;overflow-y:auto"></div>
+            </div>
+          </div>
+          <div class="sec-hdr" style="margin-bottom:10px">
+            <div class="sec-title" style="font-size:14px" id="reviewFilterTitle">📚 Бүх үгс</div>
+            <div id="reviewWordStats" style="font-size:12px;color:var(--text3)"></div>
+          </div>
+          <div id="reviewListItems" class="log-list"></div>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- end main-learn -->
+
+  <!-- ═══════ PROFILE SECTION ═══════ -->
+  <div id="main-profile" class="main-section">
+    <div class="profile-hdr">
+      <div class="profile-hdr-left">
+        <div class="profile-avatar">🎓</div>
+        <div>
+          <div class="profile-name">YESKO</div>
+          <div class="profile-sub">English Learner</div>
+        </div>
+      </div>
+      <button class="settings-btn" onclick="switchProfile('settings')" title="Settings">⚙️</button>
+    </div>
+    <div class="section-tabs" style="top:49px">
+      <button class="section-tab active" id="pt-stats" onclick="switchProfile('stats')">📊 Үзүүлэлт</button>
+      <button class="section-tab" id="pt-level" onclick="switchProfile('level')">🎯 Level</button>
+      <button class="section-tab" id="pt-badges" onclick="switchProfile('badges')">🏆 Badges</button>
+    </div>
+
+    <!-- STATS (Үзүүлэлт) — Visual Dashboard -->
+    <div id="tab-weekly" class="tab-content active">
+      <div class="container">
+
+        <!-- SUB TOGGLE: Тоон / Визуал -->
+        <div class="sub-toggle" style="margin-bottom:16px">
+          <button class="sub-btn active" id="sBtn-numbers" onclick="switchStats('numbers')">📊 Тоон</button>
+          <button class="sub-btn" id="sBtn-visual" onclick="switchStats('visual')">🎯 Визуал</button>
+        </div>
+
+        <!-- ═══ PANEL 1: ТООН (Numbers) ═══ -->
+        <div id="stats-numbers">
+          <div class="dash-hero" id="dashHero">
+            <div class="dash-hero-num" id="dashStreak">0</div>
+            <div class="dash-hero-label">🔥 Streak Days</div>
+          </div>
+          <div class="dash-stats-row" id="dashStatsRow">
+            <div class="dash-stat-card">
+              <div class="dash-stat-lbl">Active Days</div>
+              <div class="dash-stat-val" id="ds-days">0<span>/7</span></div>
+            </div>
+            <div class="dash-stat-card">
+              <div class="dash-stat-lbl">Study Time</div>
+              <div class="dash-stat-val" id="ds-mins">0m</div>
+            </div>
+            <div class="dash-stat-card">
+              <div class="dash-stat-lbl">Avg Comp</div>
+              <div class="dash-stat-val" id="ds-comp">0%</div>
+            </div>
+          </div>
+          <div class="dash-section-title">📋 Дасгалын задаргаа</div>
+          <div class="dash-practice" id="dashPractice"></div>
+          <div class="dash-section-title" style="margin-top:20px">📊 7 хоногийн идэвхи</div>
+          <div class="dash-activity-chart">
+            <div class="dash-bars" id="dashBars"></div>
+            <div class="dash-bar-labels" id="dashBarLabels"></div>
+          </div>
+        </div>
+
+        <!-- ═══ PANEL 2: ВИЗУАЛ (Radar Chart) ═══ -->
+        <div id="stats-visual" style="display:none">
+          <!-- RADAR CHART -->
+          <div class="radar-wrap">
+            <svg id="radarSvg" viewBox="0 0 300 300" width="100%"
+              style="max-width:340px;margin:0 auto;display:block"></svg>
+          </div>
+          <!-- SKILL LEGEND -->
+          <div class="radar-legend" id="radarLegend"></div>
+          <!-- MINI BAR CHART -->
+          <div class="dash-section-title" style="margin-top:20px">📊 7 хоногийн идэвхи</div>
+          <div class="dash-activity-chart">
+            <div class="dash-bars" id="dashBars2"></div>
+            <div class="dash-bar-labels" id="dashBarLabels2"></div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- LEVEL -->
+    <div id="p-level" class="section-panel">
+      <div class="container">
+        <div class="form-section" style="margin-bottom:14px;position:relative">
+          <div class="cefr-big-num" id="cefrBig">A2</div>
+          <div class="cefr-name2" id="cefrName">Elementary</div>
+          <div class="cefr-lbls"><span class="cefr-l" id="cl-A1">A1</span><span class="cefr-l" id="cl-A2">A2</span><span
+              class="cefr-l" id="cl-B1">B1</span><span class="cefr-l" id="cl-B2">B2</span><span class="cefr-l"
+              id="cl-C1">C1</span><span class="cefr-l" id="cl-C2">C2</span></div>
+          <div class="cefr-track2">
+            <div class="cefr-fill2" id="cefrFill" style="width:0%"></div>
+            <div class="cefr-dot" id="cefrDot" style="left:0%"></div>
+          </div>
+          <div class="cefr-insight2" id="cefrInsight" style="margin-top:18px"></div>
+        </div>
+        <button class="btn-primary" onclick="startQuiz()" style="margin-bottom:14px">🎯 Take Level Quiz</button>
+        <div class="bar-chart-wrap"><canvas id="levelChart" height="170"></canvas></div>
+      </div>
+    </div>
+
+    <!-- BADGES -->
+    <div id="p-badges" class="section-panel">
+      <div class="container">
+        <div class="sec-hdr" style="margin-bottom:12px">
+          <div class="sec-title">Achievements</div><span id="badgeCount"
+            style="font-size:13px;color:var(--text3);font-weight:500"></span>
+        </div>
+        <div class="badges-grid2" id="badgesGrid"></div>
+      </div>
+    </div>
+
+    <!-- SETTINGS -->
+    <div id="p-settings" class="section-panel">
+      <div class="container">
+        <div class="sec-hdr" style="margin-bottom:14px">
+          <div class="sec-title">⚙️ Settings</div><button class="sec-action" onclick="switchProfile('stats')">←
+            Буцах</button>
+        </div>
+        <div class="form-section">
+          <div class="sec-hdr" style="margin-bottom:14px">
+            <div class="sec-title">Daily Goals</div>
+          </div>
+          <div class="form-grid">
+            <div class="fg"><label>Words / Day</label><input type="number" id="goalWords" value="10" min="0"></div>
+            <div class="fg"><label>Study Min / Day</label><input type="number" id="goalMins" value="30" min="0"></div>
+            <div class="fg"><label>Target Comp %</label><input type="number" id="goalComp" value="80" min="0" max="100">
+            </div>
+            <div class="fg"><label>Sessions / Day</label><input type="number" id="goalSessions" value="1" min="1"></div>
+            <button class="btn-primary" onclick="saveSettings()">Save Goals</button>
+          </div>
+        </div>
+        <div class="form-section">
+          <div class="sec-hdr" style="margin-bottom:12px">
+            <div class="sec-title">Reminders</div>
+          </div>
+          <div id="reminderList"></div>
+          <div class="form-grid" style="margin-top:12px">
+            <div class="fg"><label>Time</label><input type="time" id="remTime" value="20:00"></div>
+            <div class="fg"><label>Label</label><input type="text" id="remLabel" placeholder="Study!"></div>
+            <button class="btn-primary" onclick="addReminder()">Add Reminder</button>
+          </div>
+        </div>
+        <div class="form-section">
+          <div class="sec-title" style="margin-bottom:12px">Data</div>
+          <div style="display:flex;gap:10px;flex-wrap:wrap">
+            <button class="btn-ghost" onclick="exportCSV()">↓ Export CSV</button>
+            <button class="btn-ghost btn-sm danger" onclick="clearData()"
+              style="border-color:var(--red);color:var(--red)">✕ Clear All</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- end main-profile -->
+
+  <!-- BOTTOM NAV -->
+  <div class="bottom-nav">
+    <button class="bnav-btn active" id="bnav-learn" onclick="switchMain('learn')">
+      <span class="bnav-icon">📚</span>Learn<div class="bnav-dot"></div>
+    </button>
+    <button class="bnav-btn" id="bnav-profile" onclick="switchMain('profile')">
+      <span class="bnav-icon">👤</span>Profile<div class="bnav-dot"></div>
+    </button>
+  </div>
+
+  <!-- QUIZ OVERLAY -->
+  <div class="quiz-overlay" id="quizOverlay" style="display:none">
+    <div class="quiz-sheet" id="quizSheet" style="position:relative">
+      <button class="quiz-close" onclick="closeQuiz()">✕</button>
+      <div id="quizBody"></div>
+    </div>
+  </div>
+
+  <div class="toast" id="toast"></div>
+
+  <script>
+    // ─── DATA ───
+    let logs = JSON.parse(localStorage.getItem('eng_logs') || '[]');
+    let sessions = JSON.parse(localStorage.getItem('eng_sessions') || '[]');
+    let words = JSON.parse(localStorage.getItem('eng_words') || '[]');
+    // Migration to SRS format
+    let _migrated = false;
+    words.forEach(w => {
+      if (!w.state) {
+        _migrated = true;
+        if (w.learned) {
+          w.state = 'tree'; w.interval = 21; w.ease = 2.5; w.nextReview = Date.now() + 21 * 86400000;
+        } else {
+          w.state = 'seed'; w.interval = 0; w.ease = 2.5; w.nextReview = Date.now();
+        }
+        delete w.learned;
+      }
+    });
+    if (_migrated) localStorage.setItem('eng_words', JSON.stringify(words));
+
+    let contents = JSON.parse(localStorage.getItem('eng_contents') || '[]');
+    let reminders = JSON.parse(localStorage.getItem('eng_reminders') || '[]');
+    let settings = JSON.parse(localStorage.getItem('eng_settings') || JSON.stringify({ goalWords: 10, goalMins: 30, goalComp: 80, goalSessions: 1 }));
+    let charts = {}, timerS = 0, timerOn = false, timerIv = null, cardIdx = 0;
+    let currentWeeklyMode = 'chart', currentActionMode = 'timer';
+    let quizState = {};
+
+    const CEFR = [
+      { level: 'A1', name: 'Beginner', minComp: 0, minWords: 0, pct: 5 },
+      { level: 'A2', name: 'Elementary', minComp: 40, minWords: 50, pct: 20 },
+      { level: 'B1', name: 'Intermediate', minComp: 60, minWords: 200, pct: 40 },
+      { level: 'B2', name: 'Upper-Inter.', minComp: 75, minWords: 500, pct: 60 },
+      { level: 'C1', name: 'Advanced', minComp: 88, minWords: 1500, pct: 80 },
+      { level: 'C2', name: 'Mastery', minComp: 96, minWords: 3000, pct: 96 },
+    ];
+
+    // QUIZ QUESTIONS PER LEVEL — 8 questions each for ~10 min adaptive test
+    const QUIZ_QUESTIONS = {
+      A1: [
+        { q: 'What is the plural of "child"?', opts: ['childs', 'children', 'childes', 'child'], ans: 1 },
+        { q: '"I ___ hungry." — Choose the correct word:', opts: ['am', 'is', 'are', 'be'], ans: 0 },
+        { q: 'Which word is a color?', opts: ['run', 'blue', 'eat', 'jump'], ans: 1 },
+        { q: 'What does "happy" mean?', opts: ['гунигтай', 'ядарсан', 'баяртай', 'ууртай'], ans: 2 },
+        { q: '"She ___ a student." — Correct form:', opts: ['am', 'is', 'are', 'be'], ans: 1 },
+        { q: 'Choose the correct sentence:', opts: ['He have a dog.', 'He has a dog.', 'He haves a dog.', 'He having a dog.'], ans: 1 },
+        { q: 'What is the opposite of "big"?', opts: ['tall', 'small', 'fast', 'old'], ans: 1 },
+        { q: '"Where ___ you from?" — Correct word:', opts: ['is', 'am', 'are', 'do'], ans: 2 },
+      ],
+      A2: [
+        { q: '"She ___ TV when I called." — Choose the correct form:', opts: ['watches', 'was watching', 'watched', 'watch'], ans: 1 },
+        { q: 'What does "exhausted" mean?', opts: ['баяртай', 'маш ядарсан', 'өлссөн', 'айсан'], ans: 1 },
+        { q: 'Choose the correct preposition: "I arrived ___ Monday."', opts: ['in', 'at', 'on', 'by'], ans: 2 },
+        { q: 'Which sentence is correct?', opts: ['I have never been to Paris.', 'I have ever been to Paris.', 'I was never to Paris.', 'I never been to Paris.'], ans: 0 },
+        { q: '"Could you ___ me?" means to help. What word fits?', opts: ['help', 'gave', 'took', 'ran'], ans: 0 },
+        { q: '"I ___ to the store yesterday." — Correct form:', opts: ['go', 'went', 'goed', 'going'], ans: 1 },
+        { q: 'What does "expensive" mean?', opts: ['хямд', 'үнэтэй', 'жижиг', 'хуучин'], ans: 1 },
+        { q: '"There ___ many people at the party." — Correct form:', opts: ['was', 'were', 'is', 'am'], ans: 1 },
+      ],
+      B1: [
+        { q: '"Despite ___ tired, she finished the work." — Correct form:', opts: ['be', 'being', 'been', 'to be'], ans: 1 },
+        { q: 'What does "resilient" mean?', opts: ['хэврэг', 'бат бэх, тэсвэртэй', 'залхуу', 'хурдан'], ans: 1 },
+        { q: 'Choose the correct conditional: "If I ___ rich, I ___ travel."', opts: ['am / will', 'were / would', 'was / will', 'am / would'], ans: 1 },
+        { q: 'What is a synonym of "enormous"?', opts: ['tiny', 'gigantic', 'average', 'hollow'], ans: 1 },
+        { q: '"The report was ___ by the manager." — Passive voice:', opts: ['writing', 'written', 'wrote', 'writes'], ans: 1 },
+        { q: '"I wish I ___ speak French." — Correct form:', opts: ['can', 'could', 'will', 'should'], ans: 1 },
+        { q: '"She asked me ___ I was coming." — Correct word:', opts: ['that', 'if', 'do', 'what'], ans: 1 },
+        { q: 'What does "apparently" mean?', opts: ['мэдэгдэхүйц', 'нууцаар', 'мэдээлснээр', 'тодорхой бус'], ans: 2 },
+      ],
+      B2: [
+        { q: 'Which word means "to make something less severe"?', opts: ['exacerbate', 'mitigate', 'aggravate', 'provoke'], ans: 1 },
+        { q: '"Had she known, she ___." — Correct form:', opts: ['would act', 'would have acted', 'will act', 'acted'], ans: 1 },
+        { q: 'Choose the correct collocation: "___ a decision"', opts: ['do', 'make', 'take', 'have'], ans: 1 },
+        { q: 'What does "nuanced" mean?', opts: ['нарийн ялгаатай', 'энгийн', 'хурдан', 'гадаргуйн'], ans: 0 },
+        { q: 'Which uses the subjunctive correctly?', opts: ['I suggest that he goes.', 'I suggest that he go.', 'I suggest that he going.', 'I suggest he gone.'], ans: 1 },
+        { q: '"The more you practice, the ___ you become."', opts: ['good', 'better', 'best', 'well'], ans: 1 },
+        { q: 'What does "controversial" mean?', opts: ['маргаантай', 'тодорхой', 'бүх нийтийн', 'энгийн'], ans: 0 },
+        { q: '"Not only ___ he smart, but he is also kind."', opts: ['is', 'was', 'does', 'has'], ans: 0 },
+      ],
+      C1: [
+        { q: 'What does "perfidious" mean?', opts: ['итгэмжгүй, урвагч', 'маш хурдан', 'хүчтэй', 'гялалзсан'], ans: 0 },
+        { q: 'Which correctly uses "albeit"?', opts: ['He succeeded, albeit with difficulty.', 'He succeeded albeit he failed.', 'Albeit he tried, he failed.', 'He, albeit, succeeded.'], ans: 0 },
+        { q: '"The proposal was ___ by all parties."', opts: ['endorsed', 'doing', 'making', 'went'], ans: 0 },
+        { q: 'What does "circumlocution" mean?', opts: ['шууд бус, урт тайлбар', 'богино үг', 'тодорхой санаа', 'дуу чимээ'], ans: 0 },
+        { q: 'Choose the most formal synonym of "use":', opts: ['utilize', 'grab', 'get', 'take'], ans: 0 },
+        { q: '"She is ___ in three languages." — Best word:', opts: ['fluent', 'good', 'knowing', 'learned'], ans: 0 },
+        { q: 'What does "ubiquitous" mean?', opts: ['ховор', 'хаа сайгүй байдаг', 'алдартай', 'нууцлаг'], ans: 1 },
+        { q: '"The ___ of evidence suggests he was wrong."', opts: ['preponderance', 'amount', 'lot', 'size'], ans: 0 },
+      ],
+      C2: [
+        { q: 'What does "loquacious" mean?', opts: ['чимээгүй', 'маш их яридаг', 'ухаантай', 'уйтгартай'], ans: 1 },
+        { q: 'Which means "causing insidious harm"?', opts: ['pernicious', 'beneficial', 'innocuous', 'trivial'], ans: 0 },
+        { q: '"The ___ of the issue was apparent to all."', opts: ['obfuscation', 'complexity', 'nuance', 'gravity'], ans: 3 },
+        { q: 'What is an "anachronism"?', opts: ['Цаг үетэй нийцэхгүй зүйл', 'Шинэ зохион бүтээлт', 'Хуучин уламжлал', 'Орчин үеийн арга'], ans: 0 },
+        { q: 'Correct use of "notwithstanding":', opts: ['Notwithstanding the rain, they continued.', 'They continued notwithstanding they were wet.', 'Notwithstanding, they stopped.', 'They, notwithstanding, ran.'], ans: 0 },
+        { q: 'What does "sesquipedalian" mean?', opts: ['урт үг хэрэглэдэг', 'богино, товч', 'хөгжилтэй', 'ноцтой'], ans: 0 },
+        { q: '"Her ___ demeanor belied her inner turmoil."', opts: ['sanguine', 'truculent', 'lethargic', 'phlegmatic'], ans: 3 },
+        { q: 'What does "schadenfreude" mean?', opts: ['бусдын зовлонд баярлах', 'өрөвдөх', 'бахархах', 'урам хугарах'], ans: 0 },
+      ],
+    };
+
+    const ACT_ICONS = { Subtitle: '📺', Video: '🎥', Reading: '📖', Speaking: '🎤', Listening: '🎧', 'Shadowing 🗣️': '🗣️', App: '📱', Other: '✨' };
+    const CONTENT_ICONS = { Series: '📺', Movie: '🎬', 'TED Talk': '🎙', Podcast: '🎧', YouTube: '▶️', News: '📰', Other: '✨' };
+    const BADGES = [
+      { id: 'first_log', icon: '🌱', name: 'First Step', desc: 'Log first day' },
+      { id: 'streak3', icon: '🔥', name: '3 Day Streak', desc: '3 days in a row' },
+      { id: 'streak7', icon: '⚡', name: 'Week Warrior', desc: '7 days in a row' },
+      { id: 'streak30', icon: '💎', name: 'Month Master', desc: '30 days in a row' },
+      { id: 'words50', icon: '📖', name: '50 Words', desc: 'Learn 50 words' },
+      { id: 'words200', icon: '📚', name: '200 Words', desc: 'Learn 200 words' },
+      { id: 'w20bank', icon: '💬', name: 'Word Bank 20', desc: 'Add 20 words' },
+      { id: 'comp70', icon: '👁', name: '70% Comp', desc: 'Avg 70%+' },
+      { id: 'comp85', icon: '🎯', name: '85% Comp', desc: 'Avg 85%+' },
+      { id: 'time60', icon: '⏱', name: '1 Hour', desc: '60 min total' },
+      { id: 'time300', icon: '🕐', name: '5 Hours', desc: '300 min total' },
+      { id: 'content5', icon: '🎬', name: '5 Contents', desc: 'Log 5 contents' },
+      { id: 'shadow', icon: '🗣️', name: 'Shadow Pro', desc: '5 Shadowing logs' },
+      { id: 'mood10', icon: '😊', name: 'Mood Logger', desc: '10 mood entries' },
+      { id: 'quiz_pass', icon: '🏆', name: 'Quiz Passer', desc: 'Pass a level quiz' },
+    ];
+
+    const QUOTES = [
+      { en: "The secret of getting ahead is getting started.", mn: "Амжилтанд хүрэх нууц бол эхлэж үзэх явдал юм." },
+      { en: "It always seems impossible until it's done.", mn: "Хийж дуусах хүртэл үргэлж боломжгүй мэт санагддаг." },
+      { en: "Don't watch the clock; do what it does. Keep going.", mn: "Цаг руу бүү хар; цаг шиг бай. Зүгээр л урагшил." },
+      { en: "A year from now you may wish you had started today.", mn: "Ирэх жилийн өдийд та өнөөдөр эхэлсэн болоосой гэж хүсэх болно." },
+      { en: "Mistakes are proof that you are trying.", mn: "Алдаа гэдэг бол чи хичээж байгаагийн баталгаа юм." },
+      { en: "Small daily improvements are the key to staggering long-term results.", mn: "Өдөр тутмын жижиг сайжруулалт нь урт хугацааны гайхалтай үр дүнгийн түлхүүр юм." },
+      { en: "Language is not a genetic gift, it is a social gift.", mn: "Хэл гэдэг бол генетикийн бэлэг биш, нийгмийн бэлэг юм." },
+      { en: "To learn a language is to have one more window from which to look at the world.", mn: "Хэл сурах гэдэг нь хорвоог харах дахин нэг цонхтой болохыг хэлнэ." },
+      { en: "Do something today that your future self will thank you for.", mn: "Ирээдүйн чи өөрөөрөө бахархах тэр зүйлийг өнөөдөр хий." },
+      { en: "Fall seven times and stand up eight.", mn: "Долоо унасан ч найм дахиа бос." },
+      { en: "Success is the sum of small efforts, repeated day in and day out.", mn: "Амжилт гэдэг нь өдөр бүр давтагддаг жижиг хүчин чармайлтуудын нийлбэр юм." },
+      { en: "The beautiful thing about learning is nobody can take it away from you.", mn: "Суралцахын гайхамшиг нь хэн ч чамаас түүнийг хэзээ ч булааж авч чадахгүй явдал юм." }
+    ];
+
+    function todayStr() { return new Date().toISOString().split('T')[0] }
+    function saveAll() {
+      localStorage.setItem('eng_logs', JSON.stringify(logs));
+      localStorage.setItem('eng_sessions', JSON.stringify(sessions));
+      localStorage.setItem('eng_words', JSON.stringify(words));
+      localStorage.setItem('eng_contents', JSON.stringify(contents));
+      localStorage.setItem('eng_reminders', JSON.stringify(reminders));
+      localStorage.setItem('eng_settings', JSON.stringify(settings));
+    }
+
+    // ─── SOUND EFFECTS (Web Audio API) ───
+    let _audioCtx = null;
+    function getAudio() {
+      if (!_audioCtx) _audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+      return _audioCtx;
+    }
+    function playTone(freq, type, dur, vol, delay) {
+      const ctx = getAudio(); const t = ctx.currentTime + (delay || 0);
+      const osc = ctx.createOscillator(); const gain = ctx.createGain();
+      osc.type = type || 'sine'; osc.frequency.setValueAtTime(freq, t);
+      gain.gain.setValueAtTime(0, t);
+      gain.gain.linearRampToValueAtTime(vol || 0.15, t + 0.02);
+      gain.gain.exponentialRampToValueAtTime(0.001, t + (dur || 0.2));
+      osc.connect(gain); gain.connect(ctx.destination);
+      osc.start(t); osc.stop(t + (dur || 0.2) + 0.01);
+    }
+    const SFX = {
+      success() { playTone(880, 'sine', 0.12, 0.13); playTone(1100, 'sine', 0.18, 0.1, 0.08); },
+      word_add() { playTone(660, 'triangle', 0.08, 0.12); playTone(880, 'triangle', 0.12, 0.1, 0.06); playTone(1100, 'triangle', 0.15, 0.08, 0.12); },
+      correct() { playTone(700, 'sine', 0.06, 0.1); playTone(900, 'sine', 0.1, 0.12, 0.05); },
+      wrong() { playTone(250, 'square', 0.15, 0.06); playTone(200, 'square', 0.2, 0.05, 0.08); },
+      badge() { playTone(523, 'triangle', 0.12, 0.12); playTone(659, 'triangle', 0.12, 0.1, 0.1); playTone(784, 'triangle', 0.2, 0.13, 0.2); playTone(1047, 'sine', 0.3, 0.1, 0.3); },
+      levelup() { playTone(440, 'sine', 0.1, 0.1); playTone(554, 'sine', 0.1, 0.1, 0.1); playTone(659, 'sine', 0.1, 0.1, 0.2); playTone(880, 'sine', 0.15, 0.12, 0.3); playTone(1100, 'triangle', 0.25, 0.08, 0.4); },
+      click() { playTone(600, 'sine', 0.04, 0.06); },
+      flip() { playTone(400, 'sine', 0.05, 0.05); playTone(500, 'sine', 0.05, 0.04, 0.03); },
+    };
+    function showToast(msg, col) {
+      const t = document.getElementById('toast');
+      t.textContent = msg;
+      t.style.background = col || 'var(--p)';
+      t.classList.add('show');
+      setTimeout(() => t.classList.remove('show'), 2400);
+    }
+    function calcCEFR(ac, tw) { let l = CEFR[0]; for (let c of CEFR) { if (ac >= c.minComp && tw >= c.minWords) l = c; } return l; }
+    function calcStreak() {
+      const sorted = [...new Set(logs.map(l => l.date))].sort().reverse();
+      let s = 0, cur = new Date(); cur.setHours(0, 0, 0, 0);
+      for (let d of sorted) { const dt = new Date(d); dt.setHours(0, 0, 0, 0); if ((cur - dt) / 86400000 <= 1) { s++; cur = dt; } else break; }
+      return s;
+    }
+
+    // ─── INIT ───
+    document.getElementById('logDate').value = todayStr();
+    document.getElementById('cDate').value = todayStr();
+    loadSettings(); scheduleReminders();
+    document.getElementById('logComp').oninput = e => { document.getElementById('compVal').textContent = e.target.value + '%'; };
+    document.getElementById('logMood').oninput = e => { document.getElementById('moodVal').textContent = e.target.value + ' / 10'; };
+    document.getElementById('cComp').oninput = e => { document.getElementById('cCompVal').textContent = e.target.value + '%'; };
+
+    // ─── NAVIGATION ───
+    let currentMain = 'learn', currentLearn = 'home', currentProfile = 'stats';
+
+    function switchMain(section) {
+      SFX.click();
+      currentMain = section;
+      document.querySelectorAll('.main-section').forEach(s => s.classList.remove('active'));
+      document.getElementById('main-' + section).classList.add('active');
+      document.querySelectorAll('.bnav-btn').forEach(b => b.classList.remove('active'));
+      document.getElementById('bnav-' + section).classList.add('active');
+      // render active content
+      if (section === 'learn') {
+        const fns = { home: renderHome, action: renderAction };
+        fns[currentLearn]?.();
+      } else {
+        const fns = { stats: renderWeekly, level: renderLevel, badges: renderBadges };
+        fns[currentProfile]?.();
+      }
+    }
+
+    function switchLearn(panel) {
+      currentLearn = panel;
+      // hide all learn tab-content
+      document.querySelectorAll('#main-learn .tab-content').forEach(t => t.classList.remove('active'));
+      document.getElementById('tab-' + panel).classList.add('active');
+      // update sub-tab buttons
+      document.querySelectorAll('#main-learn .section-tab').forEach(b => b.classList.remove('active'));
+      document.getElementById('lt-' + panel).classList.add('active');
+      const fns = { home: renderHome, action: renderAction, review: renderReviewTab };
+      fns[panel]?.();
+    }
+
+    function switchProfile(panel) {
+      currentProfile = panel;
+      // hide all profile panels AND the weekly tab-content
+      document.querySelectorAll('#main-profile .section-panel').forEach(p => p.classList.remove('active'));
+      document.getElementById('tab-weekly').classList.remove('active');
+      // update sub-tab buttons
+      document.querySelectorAll('#main-profile .section-tab').forEach(b => b.classList.remove('active'));
+      if (panel === 'stats') {
+        document.getElementById('tab-weekly').classList.add('active');
+        document.getElementById('pt-stats')?.classList.add('active');
+        renderWeekly();
+      } else if (panel === 'level') {
+        document.getElementById('p-level').classList.add('active');
+        document.getElementById('pt-level')?.classList.add('active');
+        renderLevel();
+      } else if (panel === 'badges') {
+        document.getElementById('p-badges').classList.add('active');
+        document.getElementById('pt-badges')?.classList.add('active');
+        renderBadges();
+      } else if (panel === 'settings') {
+        document.getElementById('p-settings').classList.add('active');
+        loadSettings();
+      }
+    }
+
+    // backward compat
+    function switchTab(name) {
+      if (name === 'words') { switchMain('learn'); switchLearn('action'); setTimeout(() => toggleQWordForm(true), 100); return; }
+      if (['home', 'action'].includes(name)) { switchMain('learn'); switchLearn(name); }
+      else if (name === 'weekly') { switchMain('profile'); switchProfile('stats'); }
+      else if (name === 'level') { switchMain('profile'); switchProfile('level'); }
+      else if (name === 'badges') { switchMain('profile'); switchProfile('badges'); }
+      else if (name === 'settings') { switchMain('profile'); switchProfile('settings'); }
+    }
+
+    // ─── ACTION TAB ───
+    function switchAction(mode) {
+      currentActionMode = mode;
+      ['timer', 'manual', 'content'].forEach(m => {
+        document.getElementById('action-' + m).style.display = m === mode ? 'block' : 'none';
+        document.getElementById('aBtn-' + m).classList.toggle('active', m === mode);
+      });
+      if (mode === 'manual') renderLogList();
+      if (mode === 'content') renderContent();
+      if (mode === 'timer') renderSessions();
+    }
+    function renderAction() {
+      switchAction(currentActionMode);
+    }
+
+    // ─── LOG ───
+    function addLog() {
+      const e = { id: Date.now(), date: document.getElementById('logDate').value, type: document.getElementById('logType').value, comp: +document.getElementById('logComp').value, mood: +document.getElementById('logMood').value, words: +document.getElementById('logWords').value || 0, pron: +document.getElementById('logPron').value || 0, mins: +document.getElementById('logMins').value || 0, content: document.getElementById('logContent').value.trim(), note: document.getElementById('logNote').value.trim() };
+      if (!e.date) { showToast('Pick a date!'); return; }
+      logs.unshift(e); saveAll();
+      document.getElementById('logNote').value = ''; document.getElementById('logContent').value = '';
+      document.getElementById('logWords').value = 0; document.getElementById('logMins').value = 0;
+      renderLogList(); SFX.success(); showToast('✓ Entry saved');
+    }
+    function deleteLog(id) { logs = logs.filter(l => l.id !== id); saveAll(); renderLogList(); }
+    function renderLogList() {
+      const el = document.getElementById('logList');
+      if (!logs.length) { el.innerHTML = '<div class="empty">No entries yet</div>'; return; }
+      el.innerHTML = logs.slice(0, 40).map(l => `
+    <div class="log-item">
+      <div class="log-icon">${ACT_ICONS[l.type] || '✨'}</div>
+      <div class="log-main">
+        <div class="log-title">${l.type}${l.content ? ' · ' + l.content : ''}</div>
+        <div class="log-sub">
+          <span class="log-tag clickable" onclick="switchTab('words')" title="Үгс рүү очих">📖 ${l.words} үг</span>
+          <span class="log-tag">🎤 ${l.pron}/10</span>
+          ${l.mins ? `<span class="log-tag">⏱ ${l.mins}м</span>` : ''}
+        </div>
+      </div>
+      <div class="log-right">
+        <div class="log-comp-big">${l.comp}%</div>
+        <button class="log-delete" onclick="deleteLog(${l.id})">✕</button>
+      </div>
+    </div>`).join('');
+    }
+
+    // ─── TIMER ───
+    function timerToggle() {
+      if (timerOn) { clearInterval(timerIv); timerOn = false; document.getElementById('timerBtn').innerHTML = '▶ Start'; document.getElementById('timerStatus').textContent = 'Paused'; }
+      else { timerOn = true; timerIv = setInterval(() => { timerS++; updateTimer(); }, 1000); document.getElementById('timerBtn').innerHTML = '⏸ Pause'; document.getElementById('timerStatus').textContent = 'Studying...'; }
+    }
+    function timerReset() { clearInterval(timerIv); timerOn = false; timerS = 0; updateTimer(); document.getElementById('timerBtn').innerHTML = '▶ Start'; document.getElementById('timerStatus').textContent = 'Ready to start'; }
+    function timerSave() {
+      if (timerS < 10) { showToast('Study a bit more!'); return; }
+      const mins = Math.round(timerS / 60);
+      sessions.unshift({ id: Date.now(), date: todayStr(), mins, ts: new Date().toLocaleTimeString() });
+      saveAll(); SFX.success(); showToast(`✓ ${mins} min saved`);
+      // Auto-fill manual log & switch
+      timerReset();
+      document.getElementById('logMins').value = mins;
+      switchAction('manual');
+      showToast(`✓ ${mins} min filled → complete your log`);
+    }
+    function updateTimer() { const h = Math.floor(timerS / 3600), m = Math.floor((timerS % 3600) / 60), s = timerS % 60; document.getElementById('timerDisplay').textContent = [h, m, s].map(v => String(v).padStart(2, '0')).join(':'); }
+    function renderSessions() {
+      const el = document.getElementById('sessionList');
+      if (!sessions.length) { el.innerHTML = '<div class="empty">No sessions yet</div>'; return; }
+      el.innerHTML = sessions.slice(0, 15).map(s => `
+    <div class="log-item">
+      <div class="log-icon">⏱</div>
+      <div class="log-main"><div class="log-title">Study Session</div><div class="log-sub"><span class="log-tag">📅 ${s.date}</span><span class="log-tag">⏳ ${s.ts || ''}</span></div></div>
+      <div class="log-right"><div class="log-comp-big" style="font-size:15px">${s.mins}m</div><button class="log-delete" onclick="delSession(${s.id})">✕</button></div>
+    </div>`).join('');
+    }
+    function delSession(id) { sessions = sessions.filter(s => s.id !== id); saveAll(); renderSessions(); }
+
+    // ─── CONTENT ───
+    function addContent() {
+      const c = { id: Date.now(), title: document.getElementById('cTitle').value.trim(), type: document.getElementById('cType').value, ep: document.getElementById('cEp').value.trim(), comp: +document.getElementById('cComp').value, words: +document.getElementById('cWords').value || 0, note: document.getElementById('cNote').value.trim(), date: document.getElementById('cDate').value };
+      if (!c.title) { showToast('Title required'); return; }
+      contents.unshift(c); saveAll();['cTitle', 'cEp', 'cNote'].forEach(id => document.getElementById(id).value = ''); document.getElementById('cWords').value = 0;
+      renderContent(); SFX.success(); showToast('✓ Content logged');
+    }
+    function deleteContent(id) { contents = contents.filter(c => c.id !== id); saveAll(); renderContent(); }
+    function renderContent() {
+      const el = document.getElementById('contentList');
+      if (!contents.length) { el.innerHTML = '<div class="empty">No content yet</div>'; return; }
+      el.innerHTML = contents.map(c => `
+    <div class="content-item">
+      <div class="content-thumb">${CONTENT_ICONS[c.type] || '✨'}</div>
+      <div class="content-info">
+        <div class="content-title2">${c.title}</div>
+        <div class="content-meta2" style="margin-bottom:4px">${c.type}${c.ep ? ' · ' + c.ep : ''} · ${c.date}</div>
+        ${c.words ? `<div class="log-sub"><span class="log-tag clickable" onclick="switchTab('words')" title="Үгс рүү очих">📖 ${c.words} үг</span></div>` : ''}
+      </div>
+      <div style="display:flex;align-items:center;gap:8px">
+        <div class="content-comp2">${c.comp}%</div>
+        <button class="log-delete" onclick="deleteContent(${c.id})">✕</button>
+      </div>
+    </div>`).join('');
+    }
+
+    // ─── WORDS ───
+    function clearAutoFetch() { }
+    async function autoFetchWord() {
+      const word = document.getElementById('wWord').value.trim();
+      if (!word) { showToast('Type a word first!'); return; }
+      const btn = document.getElementById('fetchBtn');
+      btn.textContent = '⏳'; btn.disabled = true;
+      try {
+        const res = await fetch(`https://api.dictionaryapi.dev/api/v2/entries/en/${encodeURIComponent(word)}`);
+        if (!res.ok) throw new Error('Not found');
+        const data = await res.json();
+        const entry = data[0];
+        const pron = entry.phonetics?.find(p => p.text)?.text || entry.phonetic || '';
+        const meaning = entry.meanings?.[0]?.definitions?.[0]?.definition || '';
+        const example = entry.meanings?.[0]?.definitions?.[0]?.example || '';
+        if (pron) document.getElementById('wPron').value = pron;
+        if (meaning) document.getElementById('wMean').value = meaning;
+        if (example) document.getElementById('wEx').value = example;
+        showToast('✓ Auto-filled!', 'var(--green)');
+      } catch (err) {
+        showToast('Word not found — fill manually', 'var(--orange)');
+      } finally { btn.textContent = '✨ Auto'; btn.disabled = false; }
+    }
+
+    function addWord() {
+      const w = { id: Date.now(), word: document.getElementById('wWord').value.trim(), pron: document.getElementById('wPron').value.trim(), mean: document.getElementById('wMean').value.trim(), ex: document.getElementById('wEx').value.trim(), state: 'seed', ease: 2.5, interval: 0, nextReview: Date.now(), date: todayStr() };
+      if (!w.word || !w.mean) { showToast('Word + meaning required'); return; }
+      words.unshift(w); saveAll();['wWord', 'wPron', 'wMean', 'wEx'].forEach(id => document.getElementById(id).value = '');
+      renderWords(); SFX.word_add(); showToast('✓ Word added', 'var(--green)');
+    }
+    function toggleQWordForm(show) {
+      const form = document.getElementById('qWordForm');
+      const btn = document.getElementById('qWordToggleBtn');
+      if (show) {
+        btn.style.display = 'none';
+        form.style.display = 'block';
+        renderWords();
+        document.getElementById('wWord')?.focus();
+      } else {
+        form.style.display = 'none';
+        btn.style.display = 'flex';
+      }
+    }
+    function deleteWord(id) { words = words.filter(w => w.id !== id); saveAll(); renderWords(); }
+    function toggleLearned(id) { const w = words.find(w => w.id === id); if (w) w.learned = !w.learned; saveAll(); renderWords(); }
+
+    function copyAIPrompt() {
+      const prompt = 'Би англи хэл сурч байна. Миний түвшинд тохирох хэрэгцээт 10 шинэ үг гаргаж өгнө үү. Хариуг ЗӨВХӨН энэ JSON форматаар гаргана: [{"word": "", "pron": "", "mean": "Монгол утга", "ex": "Англи жишээ өгүүлбэр + Эможи"}]. Өөр ямар ч илүү үг, тайлбар бичиж болохгүй.';
+      navigator.clipboard.writeText(prompt).then(() => showToast('📋 Prompt copied!', 'var(--green)')).catch(() => showToast('Copy failed — try manually'));
+    }
+
+    function importBulk() {
+      const raw = document.getElementById('bulkPaste').value.trim();
+      if (!raw) { showToast('Paste JSON first'); return; }
+      try {
+        let data = JSON.parse(raw);
+        if (!Array.isArray(data)) throw new Error('Must be array');
+        let count = 0;
+        data.forEach(item => {
+          if (!item.word || !item.mean) return;
+          if (words.find(w => w.word.toLowerCase() === item.word.toLowerCase())) return;
+          words.unshift({ id: Date.now() + Math.random(), word: item.word.trim(), pron: item.pron || '', mean: item.mean.trim(), ex: item.ex || '', state: 'seed', ease: 2.5, interval: 0, nextReview: Date.now(), date: todayStr() });
+          count++;
+        });
+        saveAll(); document.getElementById('bulkPaste').value = '';
+        renderWords(); SFX.word_add(); showToast(`✓ ${count} words imported`, 'var(--green)');
+      } catch (e) { showToast('Invalid JSON format', 'var(--red)'); }
+    }
+
+    // ─── SRS FLASHCARD SYSTEM ───
+    let queue = [];
+
+    function formatDays(days) {
+      if (days < 1) return '<1d';
+      if (days < 30) return Math.round(days) + 'd';
+      if (days < 365) return Math.round(days / 30) + 'm';
+      return Math.round(days / 365) + 'y';
+    }
+
+    function renderFlashcard() {
+      const now = Date.now();
+      queue = words.filter(w => w.state !== 'tree' && w.nextReview <= now);
+      // Sort: prioritize seeds (new), then by nextReview time
+      queue.sort((a, b) => (a.state === 'seed' ? -1 : 1) - (b.state === 'seed' ? -1 : 1) || (a.nextReview - b.nextReview));
+
+      const totalDue = queue.length;
+      const trees = words.filter(w => w.state === 'tree').length;
+
+      document.getElementById('cardCount').innerHTML = totalDue > 0
+        ? `<span style="color:var(--p2)">🔥 Өнөөдөр давтах: ${totalDue} үг</span> <span style="margin:0 8px;opacity:0.3">|</span> 🌳 ${trees} mastered`
+        : `🎉 Бүх үг давтагдсан! <span style="margin:0 8px;opacity:0.3">|</span> 🌳 ${trees} mastered`;
+
+      const fc = document.getElementById('flashcard');
+      const srsUi = document.getElementById('srsControls');
+      if (!totalDue) {
+        document.getElementById('cf-word').textContent = words.length ? 'You\'re all caught up!' : 'Add a word';
+        document.getElementById('cf-pron').textContent = '';
+        document.getElementById('cb-mean').textContent = '—';
+        document.getElementById('cb-ex').textContent = '';
+        fc?.classList.remove('flipped');
+        fc.style.pointerEvents = 'none';
+        if (srsUi) srsUi.style.display = 'none';
+        return;
+      }
+
+      fc.style.pointerEvents = 'auto';
+      fc?.classList.remove('flipped');
+      if (srsUi) srsUi.style.display = 'none';
+
+      const w = queue[0];
+      document.getElementById('cf-word').textContent = w.word;
+      document.getElementById('cf-pron').textContent = w.pron || '';
+      document.getElementById('cb-mean').textContent = w.mean;
+      document.getElementById('cb-ex').textContent = w.ex ? `"${w.ex}"` : ' ';
+
+      // Calculate projected intervals for buttons
+      let intH = w.interval === 0 ? 1 : w.interval * 1.2;
+      let intG = w.interval === 0 ? 3 : w.interval * (w.ease || 2.5);
+      let intE = w.interval === 0 ? 7 : w.interval * (w.ease || 2.5) * 1.3;
+      document.getElementById('t-hard').textContent = formatDays(intH);
+      document.getElementById('t-good').textContent = formatDays(intG);
+      document.getElementById('t-easy').textContent = formatDays(intE);
+    }
+
+    function flipCard() {
+      const fc = document.getElementById('flashcard');
+      if (fc.style.pointerEvents === 'none') return;
+      const isFlipped = fc.classList.toggle('flipped');
+      SFX.flip();
+      const srsUi = document.getElementById('srsControls');
+      if (srsUi) {
+        srsUi.style.display = isFlipped ? 'flex' : 'none';
+      }
+    }
+
+    function floatEmoji(emoji) {
+      const el = document.createElement('div');
+      el.textContent = emoji;
+      el.className = 'float-emoji';
+      const fc = document.getElementById('flashcard');
+      const rect = fc.getBoundingClientRect();
+      el.style.left = (rect.left + rect.width / 2 - 20 + (Math.random() * 40 - 20)) + 'px';
+      el.style.top = (rect.top + rect.height / 2) + 'px';
+      document.body.appendChild(el);
+      setTimeout(() => el.remove(), 1500);
+    }
+
+    function answerSRS(rating) {
+      if (!queue.length) return;
+      const w = queue[0];
+
+      // Rating: 0=Again, 1=Hard, 2=Good, 3=Easy
+      if (rating === 0) {
+        w.ease = Math.max(1.3, (w.ease || 2.5) - 0.2);
+        w.interval = 0;
+        w.nextReview = Date.now() + 60000; // 1 min later
+        SFX.wrong(); floatEmoji('😅');
+      } else {
+        if (rating === 1) { w.interval = w.interval === 0 ? 1 : w.interval * 1.2; w.ease = Math.max(1.3, w.ease - 0.15); SFX.click(); floatEmoji('🌱'); }
+        if (rating === 2) { w.interval = w.interval === 0 ? 3 : w.interval * w.ease; SFX.correct(); floatEmoji('✅'); }
+        if (rating === 3) { w.interval = w.interval === 0 ? 7 : w.interval * w.ease * 1.3; w.ease += 0.15; SFX.success(); floatEmoji('🤩'); }
+
+        w.nextReview = Date.now() + w.interval * 86400000;
+      }
+
+      // Determine state
+      if (w.interval === 0) w.state = 'seed';
+      else if (w.interval > 0 && w.interval < 21) w.state = 'sprout';
+      else { w.state = 'tree'; SFX.levelup(); floatEmoji('🌳'); }
+
+      saveAll();
+
+      // Transition out
+      const fc = document.getElementById('flashcard');
+      fc.style.transform = 'translateX(-100%) opacity(0)';
+      setTimeout(() => {
+        renderWords();
+        fc.style.transition = 'none';
+        fc.style.transform = 'translateX(50px)';
+        setTimeout(() => {
+          fc.style.transition = 'transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1)';
+          fc.style.transform = 'translateX(0)';
+        }, 50);
+      }, 200);
+    }
+
+    function renderWordList() {
+      const el = document.getElementById('wordList');
+      const tot = words.length, lrn = words.filter(w => w.state === 'tree').length;
+      document.getElementById('wordStats').innerHTML = `🌳 ${lrn}/${tot} mastered`;
+      if (!words.length) { el.innerHTML = '<div class="empty">No words yet</div>'; return; }
+      el.innerHTML = words.map(w => {
+        const emoji = w.state === 'tree' ? '🌳' : w.state === 'sprout' ? '🌿' : '🌱';
+        return `<div class="word-item ${w.state === 'tree' ? 'learned' : ''}">
+      <div class="word-w">${w.word}</div>
+      <div class="word-m">${w.mean}</div>
+      <div class="word-acts" style="display:flex;align-items:center;gap:12px">
+        <span style="font-size:16px;filter:drop-shadow(0 0 4px rgba(0,0,0,0.2))" title="${w.state}">${emoji}</span>
+        <button class="btn-icon" style="width:28px;height:28px;font-size:12px" onclick="deleteWord(${w.id})">✕</button>
+      </div>
+    </div>`;
+      }).join('');
+    }
+
+    // ─── REVIEW TAB ───
+    let reviewQueue = [], reviewDoneCount = 0, reviewTotalCount = 0;
+
+    function renderReviewTab() {
+      const now = Date.now();
+      reviewQueue = words.filter(w => w.state !== 'tree' && w.nextReview <= now)
+        .sort((a, b) => (a.state === 'seed' ? -1 : 1) - (b.state === 'seed' ? -1 : 1) || a.nextReview - b.nextReview);
+      reviewTotalCount = reviewQueue.length;
+      reviewDoneCount = 0;
+      document.getElementById('reviewCard').classList.remove('flipped');
+      document.getElementById('reviewSrsControls').style.display = 'none';
+      document.getElementById('reviewComplete').style.display = 'none';
+      document.getElementById('reviewHeader').style.display = 'block';
+      document.getElementById('reviewCardOuter').style.display = 'block';
+      document.getElementById('reviewWordList').style.display = 'block';
+      renderReviewCard();
+      renderReviewWordList();
+    }
+
+    function renderReviewCard() {
+      if (!reviewQueue.length) {
+        document.getElementById('reviewCardOuter').style.display = 'none';
+        document.getElementById('reviewSrsControls').style.display = 'none';
+        document.getElementById('reviewComplete').style.display = 'block';
+        document.getElementById('reviewProgress').textContent = `✅ ${reviewDoneCount} дууслаа`;
+        document.getElementById('reviewProgressFill').style.width = '100%';
+        const trees = words.filter(w => w.state === 'tree').length;
+        const sprouts = words.filter(w => w.state === 'sprout').length;
+        const seeds = words.filter(w => w.state === 'seed').length;
+        document.getElementById('reviewSummary').innerHTML = `
+          <div class="dash-stat-card"><div class="dash-stat-lbl">🌳 Mastered</div><div class="dash-stat-val" style="color:var(--green)">${trees}</div></div>
+          <div class="dash-stat-card"><div class="dash-stat-lbl">🌿 Learning</div><div class="dash-stat-val" style="color:var(--blue)">${sprouts}</div></div>
+          <div class="dash-stat-card"><div class="dash-stat-lbl">🌱 New</div><div class="dash-stat-val" style="color:var(--orange)">${seeds}</div></div>`;
+        if (reviewDoneCount > 0) {
+          SFX.levelup();
+          startHarvestAnimation(trees);
+        }
+        return;
+      }
+      const w = reviewQueue[0];
+      const pct = reviewTotalCount ? Math.round(reviewDoneCount / reviewTotalCount * 100) : 0;
+      document.getElementById('reviewProgress').textContent = `${reviewDoneCount}/${reviewTotalCount}`;
+      document.getElementById('reviewProgressFill').style.width = pct + '%';
+      const stateLabel = w.state === 'sprout' ? '🌿 Давтаж буй' : '🌱 Шинэ';
+      document.getElementById('reviewQueueInfo').textContent = `${reviewQueue.length} үг үлдсэн · ${stateLabel}`;
+      document.getElementById('rv-state').textContent = stateLabel;
+      document.getElementById('rv-word').textContent = w.word;
+      document.getElementById('rv-pron').textContent = w.pron || '';
+      document.getElementById('rv-mean').textContent = w.mean;
+      document.getElementById('rv-ex').textContent = w.ex ? `"${w.ex}"` : '';
+      const intH = w.interval === 0 ? 1 : w.interval * 1.2;
+      const intG = w.interval === 0 ? 3 : w.interval * (w.ease || 2.5);
+      const intE = w.interval === 0 ? 7 : w.interval * (w.ease || 2.5) * 1.3;
+      document.getElementById('rv-t-hard').textContent = formatDays(intH);
+      document.getElementById('rv-t-good').textContent = formatDays(intG);
+      document.getElementById('rv-t-easy').textContent = formatDays(intE);
+      const rv = document.getElementById('reviewCard');
+      rv.style.transition = 'none';
+      rv.classList.remove('flipped');
+      document.getElementById('reviewSrsControls').style.display = 'none';
+      setTimeout(() => { rv.style.transition = ''; }, 50);
+    }
+
+    function flipReviewCard() {
+      if (!reviewQueue.length) return;
+      const rv = document.getElementById('reviewCard');
+      const isFlipped = rv.classList.toggle('flipped');
+      SFX.flip();
+      document.getElementById('reviewSrsControls').style.display = isFlipped ? 'flex' : 'none';
+    }
+
+    function floatEmojiAt(emoji, targetId) {
+      const el = document.createElement('div');
+      el.textContent = emoji; el.className = 'float-emoji';
+      const fc = document.getElementById(targetId);
+      const rect = fc ? fc.getBoundingClientRect() : { left: window.innerWidth / 2, top: window.innerHeight / 2, width: 0, height: 0 };
+      el.style.left = (rect.left + rect.width / 2 - 20 + (Math.random() * 40 - 20)) + 'px';
+      el.style.top = (rect.top + rect.height / 2) + 'px';
+      document.body.appendChild(el);
+      setTimeout(() => el.remove(), 1500);
+    }
+
+    function reviewAnswer(rating) {
+      if (!reviewQueue.length) return;
+      const w = reviewQueue.shift();
+      reviewDoneCount++;
+      if (rating === 0) {
+        w.ease = Math.max(1.3, (w.ease || 2.5) - 0.2);
+        w.interval = 0; w.nextReview = Date.now() + 60000; w.state = 'seed';
+        SFX.wrong(); floatEmojiAt('😅', 'reviewCard');
+        reviewQueue.push(w); reviewTotalCount++;
+      } else {
+        if (rating === 1) { w.interval = w.interval === 0 ? 1 : w.interval * 1.2; w.ease = Math.max(1.3, w.ease - 0.15); SFX.click(); floatEmojiAt('🌱', 'reviewCard'); }
+        if (rating === 2) { w.interval = w.interval === 0 ? 3 : w.interval * w.ease; SFX.correct(); floatEmojiAt('✅', 'reviewCard'); }
+        if (rating === 3) { w.interval = w.interval === 0 ? 7 : w.interval * w.ease * 1.3; w.ease += 0.15; SFX.success(); floatEmojiAt('🤩', 'reviewCard'); }
+        w.nextReview = Date.now() + w.interval * 86400000;
+        if (w.interval === 0) w.state = 'seed';
+        else if (w.interval < 21) w.state = 'sprout';
+        else { w.state = 'tree'; floatEmojiAt('🌳', 'reviewCard'); showToast('🌳 Mastered! ' + w.word, 'var(--green)'); }
+      }
+      saveAll();
+      setTimeout(() => { renderReviewCard(); renderReviewWordList(); }, 300);
+    }
+
+    // ─── HARVEST ANIMATION ───
+    function startHarvestAnimation(treeCount) {
+      const farmer = document.getElementById('farmer');
+      const speech = document.getElementById('farmerSpeech');
+      const applesDiv = document.getElementById('harvestApples');
+
+      // Reset
+      farmer.style.left = '-60px';
+      speech.style.left = '-200px';
+      speech.style.opacity = '0';
+
+      // Place apples on tree (max 12 shown)
+      const appleN = Math.min(treeCount, 12);
+      applesDiv.innerHTML = '';
+      for (let i = 0; i < appleN; i++) {
+        const a = document.createElement('span');
+        a.textContent = '🍎';
+        a.style.fontSize = '16px';
+        a.style.transition = `opacity 0.3s, transform 0.3s`;
+        a.style.transitionDelay = `${2.5 + i * 0.3}s`;
+        a.id = 'apple-' + i;
+        applesDiv.appendChild(a);
+      }
+
+      // Step 1: Farmer walks in
+      setTimeout(() => {
+        farmer.style.left = 'calc(50% - 60px)';
+        speech.style.left = 'calc(50% - 20px)';
+      }, 300);
+
+      // Step 2: Farmer arrives
+      setTimeout(() => {
+        if (treeCount === 0) {
+          // No apples scenario
+          speech.textContent = "Өөө, ургац байхгүй юу даа? 😅";
+          speech.style.opacity = '1';
+          SFX.wrong();
+          setTimeout(() => {
+            farmer.style.left = '-60px';
+            speech.style.left = '-200px';
+            speech.style.opacity = '0';
+          }, 3500);
+          return;
+        }
+
+        // Pick apples one by one
+        let picked = 0;
+        const pickInterval = setInterval(() => {
+          const apple = document.getElementById('apple-' + picked);
+          if (apple) {
+            apple.style.opacity = '0';
+            apple.style.transform = 'translateY(40px) scale(0)';
+            SFX.click();
+          }
+          picked++;
+          if (picked >= appleN) {
+            clearInterval(pickInterval);
+            // Step 3: Show speech
+            setTimeout(() => {
+              if (treeCount > 5) {
+                speech.textContent = "За өнөөдөр ч хүүхдүүдээ баярлуулах нь дээ! 🍎🍎";
+              } else {
+                speech.textContent = `${treeCount} алимтай боллоо. Маргааш илүү ихийг хураана аа! 🍎`;
+              }
+              speech.style.opacity = '1';
+              SFX.success();
+            }, 400);
+
+            // Step 4: Farmer walks back left
+            setTimeout(() => {
+              farmer.style.left = '-60px';
+              speech.style.left = '-200px';
+              speech.style.opacity = '0';
+            }, 3500);
+          }
+        }, 300);
+      }, 2000);
+    }
+
+    // ─── DICTIONARY PANEL ───
+    let dictOpen = false;
+    let currentDictType = '';
+
+    function toggleDictionary(type) {
+      const panel = document.getElementById('dictPanel');
+      ['seed', 'sprout', 'tree'].forEach(s => {
+        const arrow = document.getElementById('dictArrow-' + s);
+        if (arrow) arrow.style.transform = '';
+      });
+
+      if (dictOpen && currentDictType === type) {
+        dictOpen = false;
+        panel.style.display = 'none';
+        SFX.click();
+        return;
+      }
+
+      currentDictType = type;
+      dictOpen = true;
+      panel.style.display = 'block';
+      const arrow = document.getElementById('dictArrow-' + type);
+      if (arrow) arrow.style.transform = 'rotate(180deg)';
+
+      const searchInput = document.getElementById('dictSearch');
+      if (type === 'tree') {
+        searchInput.style.display = 'block';
+        document.getElementById('dictPanelTitle').innerHTML = '📖 Миний Толь';
+        document.getElementById('dictPanelInner').style.borderColor = 'rgba(34,197,94,.25)';
+        document.getElementById('dictPanelTitle').style.color = 'var(--green)';
+      } else if (type === 'sprout') {
+        searchInput.style.display = 'none';
+        searchInput.value = '';
+        document.getElementById('dictPanelTitle').innerHTML = '🌿 Суралцаж буй үгс';
+        document.getElementById('dictPanelInner').style.borderColor = 'rgba(59,130,246,.25)';
+        document.getElementById('dictPanelTitle').style.color = 'var(--blue)';
+      } else {
+        searchInput.style.display = 'none';
+        searchInput.value = '';
+        document.getElementById('dictPanelTitle').innerHTML = '🌱 Шинэ үгс';
+        document.getElementById('dictPanelInner').style.borderColor = 'rgba(249,115,22,.25)';
+        document.getElementById('dictPanelTitle').style.color = 'var(--orange)';
+      }
+      
+      renderDictionary();
+      SFX.click();
+    }
+
+    function renderDictionary() {
+      const search = (document.getElementById('dictSearch')?.value || '').toLowerCase().trim();
+      
+      const targetWords = words.filter(w => w.state === currentDictType);
+      const filtered = search && currentDictType === 'tree' ? targetWords.filter(w => w.word.toLowerCase().includes(search) || w.mean.toLowerCase().includes(search)) : targetWords;
+
+      let totalFormat = '';
+      if (currentDictType === 'tree') {
+        totalFormat = `${targetWords.length} үг цээжилсэн`;
+      } else if (currentDictType === 'sprout') {
+        totalFormat = `${targetWords.length} үг сурч байна`;
+      } else {
+        totalFormat = `${targetWords.length} шинэ үг байна`;
+      }
+
+      document.getElementById('dictTotal').textContent = totalFormat;
+
+      if (!filtered.length) {
+        const emptyMsgs = {
+          tree: '🌱 Одоогоор цээжилсэн үг алга',
+          sprout: '🌿 Одоогоор сурч буй үг алга',
+          seed: '🌱 Одоогоор шинэ үг алга'
+        };
+        const searchMsg = '🔍 Хайлт олдсонгүй';
+        document.getElementById('dictContent').innerHTML = `<div class="empty">${targetWords.length === 0 ? emptyMsgs[currentDictType] : searchMsg}</div>`;
+        return;
+      }
+
+      // Group by first letter only for Tree (Dictionary)
+      if (currentDictType === 'tree') {
+        const groups = {};
+        filtered.sort((a, b) => a.word.localeCompare(b.word)).forEach(w => {
+          const letter = w.word[0].toUpperCase();
+          if (!groups[letter]) groups[letter] = [];
+          groups[letter].push(w);
+        });
+
+        let html = '';
+        Object.keys(groups).sort().forEach(letter => {
+          html += `<div style="margin-bottom:12px">
+            <div style="font-size:18px;font-weight:900;color:var(--green);margin-bottom:6px;padding-left:2px;display:flex;align-items:center;gap:6px">
+              <span style="background:rgba(34,197,94,.15);padding:2px 8px;border-radius:6px">${letter}</span>
+              <span style="font-size:10px;font-weight:500;color:var(--text3)">${groups[letter].length}</span>
+            </div>`;
+          groups[letter].forEach(w => {
+            html += `<div style="display:flex;align-items:center;gap:10px;padding:8px 4px;border-bottom:1px solid var(--border)">
+              <div style="font-size:14px;font-weight:700;color:var(--p2);min-width:90px">${w.word}</div>
+              <div style="font-size:12px;color:var(--text2);flex:1">${w.mean}</div>
+              <div style="font-size:14px">🌳</div>
+            </div>`;
+          });
+          html += '</div>';
+        });
+        document.getElementById('dictContent').innerHTML = html;
+      } else {
+        // Flat list for seed and sprout
+        let html = '';
+        const emoji = currentDictType === 'sprout' ? '🌿' : '🌱';
+        const sorted = [...filtered].sort((a, b) => a.nextReview - b.nextReview);
+        
+        sorted.forEach(w => {
+            html += `<div style="display:flex;align-items:center;gap:10px;padding:8px 4px;border-bottom:1px solid var(--border)">
+              <div style="font-size:14px;font-weight:700;color:var(--p2);min-width:90px">${w.word}</div>
+              <div style="font-size:12px;color:var(--text2);flex:1">${w.mean}</div>
+              <div style="font-size:14px">${emoji}</div>
+            </div>`;
+        });
+        document.getElementById('dictContent').innerHTML = html;
+      }
+    }
+
+    let currentReviewFilter = 'all';
+
+    function setReviewFilter(state) {
+      currentReviewFilter = currentReviewFilter === state ? 'all' : state;
+      // Update active card styles
+      ['seed','sprout','tree'].forEach(s => {
+        const card = document.getElementById('pf-' + s);
+        card.classList.remove('active-seed','active-sprout','active-tree');
+        if(currentReviewFilter === s) card.classList.add('active-' + s);
+      });
+      // Update title
+      const titles = {all:'📚 Бүх үгс', seed:'🌱 Шинэ үгс', sprout:'🌿 Суралцаж буй', tree:'🌳 Цээжилсэн'};
+      document.getElementById('reviewFilterTitle').textContent = titles[currentReviewFilter];
+      renderReviewWordList();
+      SFX.click();
+    }
+
+    function renderReviewWordList() {
+      const el = document.getElementById('reviewListItems');
+      const statsEl = document.getElementById('reviewWordStats');
+      const now = Date.now();
+
+      // Update filter card counts
+      const seedCount = words.filter(w => w.state === 'seed').length;
+      const sproutCount = words.filter(w => w.state === 'sprout').length;
+      const treeCount = words.filter(w => w.state === 'tree').length;
+      const dueCount = words.filter(w => w.state !== 'tree' && w.nextReview <= now).length;
+      document.getElementById('pf-seed-count').textContent = seedCount;
+      document.getElementById('pf-sprout-count').textContent = sproutCount;
+      document.getElementById('pf-tree-count').textContent = treeCount;
+
+      statsEl.textContent = `${dueCount > 0 ? '🔥 ' + dueCount + ' due' : '✅ All clear'} · ${words.length} total`;
+
+      if (!words.length) { el.innerHTML = '<div class="empty">Word+ дарж үг нэмнэ үү</div>'; return; }
+
+      // Apply filter
+      let filtered = currentReviewFilter === 'all' ? [...words] : words.filter(w => w.state === currentReviewFilter);
+
+      if (!filtered.length) {
+        const emptyTexts = { seed:'🌱 Шинэ үг байхгүй байна', sprout:'🌿 Суралцаж буй үг байхгүй', tree:'🌳 Одоогоор цээжилсэн үг алга' };
+        el.innerHTML = `<div class="empty">${emptyTexts[currentReviewFilter] || 'Хоосон'}</div>`;
+        return;
+      }
+
+      // Sort: due words first, then by nextReview
+      filtered.sort((a, b) => {
+        const aDue = a.state !== 'tree' && a.nextReview <= now;
+        const bDue = b.state !== 'tree' && b.nextReview <= now;
+        if (aDue && !bDue) return -1; if (!aDue && bDue) return 1;
+        return a.nextReview - b.nextReview;
+      });
+
+      el.innerHTML = filtered.map(w => {
+        const emoji = w.state === 'tree' ? '🌳' : w.state === 'sprout' ? '🌿' : '🌱';
+        const isDue = w.state !== 'tree' && w.nextReview <= now;
+        const nextStr = w.state === 'tree'
+          ? '✅ Mastered'
+          : isDue ? '🔥 Now'
+          : `⏳ ${formatDays((w.nextReview - now) / 86400000)}`;
+        const dueColor = isDue ? 'var(--orange)' : w.state === 'tree' ? 'var(--green)' : 'var(--text3)';
+        return `<div class="word-item ${w.state === 'tree' ? 'learned' : ''}" style="animation:fadeUp .25s ease">
+          <div style="font-size:20px;flex-shrink:0">${emoji}</div>
+          <div class="word-w" style="min-width:80px">${w.word}</div>
+          <div class="word-m">${w.mean}</div>
+          <div style="font-size:10px;color:${dueColor};font-weight:700;white-space:nowrap;text-align:right">${nextStr}</div>
+        </div>`;
+      }).join('');
+    }
+
+    // ─── DASHBOARD (Үзүүлэлт) ───
+
+    function renderWeekly() {
+      const now = new Date();
+      const dayN = ['Ня', 'Да', 'Мя', 'Лх', 'Пү', 'Ба', 'Бя'];
+      const week = []; for (let i = 6; i >= 0; i--) { const d = new Date(now); d.setDate(d.getDate() - i); week.push(d); }
+      const dm = {};
+      logs.forEach(l => { if (!dm[l.date]) dm[l.date] = { comps: [], words: 0, mins: 0, types: {} }; dm[l.date].comps.push(l.comp); dm[l.date].words += l.words; dm[l.date].mins += l.mins; const t = l.type || 'Other'; dm[l.date].types[t] = (dm[l.date].types[t] || 0) + 1; });
+      sessions.forEach(s => { if (!dm[s.date]) dm[s.date] = { comps: [], words: 0, mins: s.mins, types: {} }; else dm[s.date].mins += s.mins; });
+      const today = todayStr();
+
+      // Streak hero
+      document.getElementById('dashStreak').textContent = calcStreak();
+
+      // Key stats
+      const wl = logs.filter(l => { const d = new Date(l.date); return (now - d) / 86400000 <= 6; });
+      const ws = sessions.filter(s => { const d = new Date(s.date); return (now - d) / 86400000 <= 6; });
+      const wD = week.filter(d => dm[d.toISOString().split('T')[0]]).length;
+      const wM = wl.reduce((a, b) => a + b.mins, 0) + ws.reduce((a, b) => a + b.mins, 0);
+      const wC = wl.length ? Math.round(wl.reduce((a, b) => a + b.comp, 0) / wl.length) : 0;
+
+      document.getElementById('ds-days').innerHTML = `${wD}<span>/7</span>`;
+      document.getElementById('ds-mins').textContent = wM + 'm';
+      document.getElementById('ds-comp').textContent = wC + '%';
+
+      // Practice breakdown
+      const typeCount = {};
+      wl.forEach(l => { const t = l.type || 'Other'; typeCount[t] = (typeCount[t] || 0) + 1; });
+      const practiceTypes = [
+        { name: 'Subtitle', emoji: '📺', color: '#8b5cf6' },
+        { name: 'Video', emoji: '🎬', color: '#6d28d9' },
+        { name: 'Listening', emoji: '🎧', color: '#3b82f6' },
+        { name: 'Reading', emoji: '📖', color: '#22c55e' },
+        { name: 'Speaking', emoji: '🗣️', color: '#f97316' },
+        { name: 'Shadowing 🗣️', emoji: '🔁', color: '#ec4899' },
+        { name: 'App', emoji: '📱', color: '#06b6d4' },
+        { name: 'Other', emoji: '📝', color: '#a78bfa' },
+      ];
+      const maxType = Math.max(1, ...Object.values(typeCount));
+      const pracEl = document.getElementById('dashPractice');
+      pracEl.innerHTML = practiceTypes.filter(p => typeCount[p.name] || 0).map(p => {
+        const cnt = typeCount[p.name] || 0;
+        const pct = Math.round(cnt / maxType * 100);
+        return `<div class="dash-prac-item">
+      <div class="dash-prac-icon">${p.emoji}</div>
+      <div class="dash-prac-info">
+        <div class="dash-prac-name">${p.name}</div>
+        <div class="dash-prac-bar"><div class="dash-prac-fill" style="width:${pct}%;background:${p.color}"></div></div>
+      </div>
+      <div class="dash-prac-val">${cnt}</div>
+    </div>`;
+      }).join('');
+      if (!pracEl.innerHTML) pracEl.innerHTML = '<div style="color:var(--text3);font-size:12px;padding:12px">Энэ 7 хоногт дасгал бүртгэл алга</div>';
+
+      // 7-day activity chart
+      const minsData = week.map(d => { const k = d.toISOString().split('T')[0]; return dm[k] ? dm[k].mins : 0; });
+      const maxMins = Math.max(1, ...minsData);
+      const barsEl = document.getElementById('dashBars');
+      const lblsEl = document.getElementById('dashBarLabels');
+      barsEl.innerHTML = week.map((d, i) => {
+        const k = d.toISOString().split('T')[0];
+        const isToday = k === today;
+        const mins = minsData[i];
+        const h = Math.max(4, mins / maxMins * 110);
+        const opacity = isToday ? 1 : 0.55;
+        const bg = isToday ? 'linear-gradient(to top,#6d28d9,#8b5cf6,#a78bfa)' :
+          `linear-gradient(to top,rgba(139,92,246,${opacity * 0.6}),rgba(139,92,246,${opacity}))`;
+        return `<div style="flex:1;display:flex;align-items:flex-end;justify-content:center;height:100%">
+      <div class="dash-bar ${isToday ? 'today' : ''}" style="height:${h}px;background:${bg};position:relative">
+        ${mins ? `<div class="dash-bar-val">${mins}m</div>` : ''}
+      </div>
+    </div>`;
+      }).join('');
+      lblsEl.innerHTML = week.map(d => {
+        const k = d.toISOString().split('T')[0];
+        const isToday = k === today;
+        return `<div class="dash-bar-lbl ${isToday ? 'today' : ''}">${dayN[d.getDay()]}</div>`;
+      }).join('');
+    }
+
+    let currentStatsMode = 'numbers';
+    function switchStats(mode) {
+      currentStatsMode = mode;
+      document.getElementById('stats-numbers').style.display = mode === 'numbers' ? 'block' : 'none';
+      document.getElementById('stats-visual').style.display = mode === 'visual' ? 'block' : 'none';
+      document.getElementById('sBtn-numbers').classList.toggle('active', mode === 'numbers');
+      document.getElementById('sBtn-visual').classList.toggle('active', mode === 'visual');
+      if (mode === 'visual') renderRadar();
+    }
+
+    function renderRadar() {
+      const now = new Date();
+      const dayN = ['Ня', 'Да', 'Мя', 'Лх', 'Пү', 'Ба', 'Бя'];
+      const week = []; for (let i = 6; i >= 0; i--) { const d = new Date(now); d.setDate(d.getDate() - i); week.push(d); }
+      const wl = logs.filter(l => { const d = new Date(l.date); return (now - d) / 86400000 <= 6; });
+      const ws = sessions.filter(s => { const d = new Date(s.date); return (now - d) / 86400000 <= 6; });
+      const dm = {};
+      logs.forEach(l => { if (!dm[l.date]) dm[l.date] = { mins: 0 }; dm[l.date].mins += l.mins; });
+      sessions.forEach(s => { if (!dm[s.date]) dm[s.date] = { mins: 0 }; dm[s.date].mins = (dm[s.date]?.mins || 0) + s.mins; });
+      const today = todayStr();
+
+      // Calculate skill values (0-100)
+      const totalWords = words.length;
+      const learnedWords = words.filter(w => w.learned).length;
+      const vocabScore = Math.min(100, totalWords * 2); // 50 words = 100%
+      const learnedScore = totalWords ? Math.round(learnedWords / totalWords * 100) : 0;
+      const compScore = wl.length ? Math.round(wl.reduce((a, b) => a + b.comp, 0) / wl.length) : 0;
+      const wD = week.filter(d => dm[d.toISOString().split('T')[0]]).length;
+      const consistScore = Math.round(wD / 7 * 100);
+      const wM = wl.reduce((a, b) => a + b.mins, 0) + ws.reduce((a, b) => a + b.mins, 0);
+      const timeScore = Math.min(100, Math.round(wM / 120 * 100)); // 120min/week = 100%
+      const types = new Set(wl.map(l => l.type || 'Other'));
+      const varietyScore = Math.min(100, Math.round(types.size / 5 * 100)); // 5 types = 100%
+
+      const skills = [
+        { name: 'Үгийн сан', val: vocabScore, color: '#8b5cf6', display: totalWords },
+        { name: 'Ойлголт', val: compScore, color: '#3b82f6', display: compScore + '%' },
+        { name: 'Тогтвортой', val: consistScore, color: '#22c55e', display: wD + '/7' },
+        { name: 'Цаг', val: timeScore, color: '#f97316', display: wM + 'm' },
+        { name: 'Олон төрөл', val: varietyScore, color: '#ec4899', display: types.size },
+        { name: 'Сурсан', val: learnedScore, color: '#06b6d4', display: learnedWords },
+      ];
+
+      // Draw SVG radar
+      const cx = 150, cy = 150, R = 110, n = skills.length;
+      const angles = skills.map((_, i) => -Math.PI / 2 + 2 * Math.PI * i / n);
+      function polar(angle, r) { return [cx + r * Math.cos(angle), cy + r * Math.sin(angle)]; }
+
+      // Grid rings
+      let svg = `<defs>
+    <radialGradient id="rGlow"><stop offset="0%" stop-color="rgba(139,92,246,0.25)"/><stop offset="100%" stop-color="rgba(139,92,246,0)"/></radialGradient>
+    <filter id="glow"><feGaussianBlur stdDeviation="4" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+  </defs>`;
+      // background glow
+      svg += `<circle cx="${cx}" cy="${cy}" r="${R + 10}" fill="url(#rGlow)"/>`;
+      // grid rings
+      for (let ring = 1; ring <= 5; ring++) {
+        const r = R * ring / 5;
+        svg += `<circle cx="${cx}" cy="${cy}" r="${r}" fill="none" stroke="rgba(255,255,255,${ring === 5 ? 0.08 : 0.04})" stroke-width="1" stroke-dasharray="${ring < 5 ? '3,3' : 'none'}"/>`;
+      }
+      // axis lines
+      angles.forEach(a => {
+        const [x, y] = polar(a, R);
+        svg += `<line x1="${cx}" y1="${cy}" x2="${x}" y2="${y}" stroke="rgba(255,255,255,0.06)" stroke-width="1"/>`;
+      });
+      // axis labels
+      angles.forEach((a, i) => {
+        const [x, y] = polar(a, R + 18);
+        const anchor = x < cx - 5 ? 'end' : x > cx + 5 ? 'start' : 'middle';
+        svg += `<text x="${x}" y="${y + 4}" text-anchor="${anchor}" fill="rgba(255,255,255,0.5)" font-size="10" font-family="Inter" font-weight="600">${skills[i].name}</text>`;
+      });
+      // data polygon
+      const pts = skills.map((s, i) => { const r = R * Math.max(s.val, 5) / 100; return polar(angles[i], r); });
+      const polyStr = pts.map(p => p.join(',')).join(' ');
+      svg += `<polygon points="${polyStr}" fill="rgba(139,92,246,0.15)" stroke="url(#rGlow)" stroke-width="0" filter="url(#glow)"/>`;
+      svg += `<polygon points="${polyStr}" fill="rgba(139,92,246,0.1)" stroke="#8b5cf6" stroke-width="2" stroke-linejoin="round"/>`;
+      // dots
+      pts.forEach((p, i) => {
+        svg += `<circle cx="${p[0]}" cy="${p[1]}" r="4" fill="${skills[i].color}" stroke="#000" stroke-width="1.5" filter="url(#glow)"/>`;
+      });
+
+      document.getElementById('radarSvg').innerHTML = svg;
+
+      // Legend
+      document.getElementById('radarLegend').innerHTML = skills.map(s => `
+    <div class="radar-leg-item">
+      <div class="radar-leg-dot" style="background:${s.color};box-shadow:0 0 6px ${s.color}"></div>
+      ${s.name}
+      <div class="radar-leg-val">${s.display}</div>
+    </div>`).join('');
+
+      // Mini bar chart (same as numbers panel)
+      const minsData = week.map(d => { const k = d.toISOString().split('T')[0]; return dm[k] ? dm[k].mins : 0; });
+      const maxMins = Math.max(1, ...minsData);
+      document.getElementById('dashBars2').innerHTML = week.map((d, i) => {
+        const k = d.toISOString().split('T')[0];
+        const isToday = k === today;
+        const mins = minsData[i];
+        const h = Math.max(4, mins / maxMins * 110);
+        const opacity = isToday ? 1 : 0.55;
+        const bg = isToday ? 'linear-gradient(to top,#6d28d9,#8b5cf6,#a78bfa)' :
+          `linear-gradient(to top,rgba(139,92,246,${opacity * 0.6}),rgba(139,92,246,${opacity}))`;
+        return `<div style="flex:1;display:flex;align-items:flex-end;justify-content:center;height:100%">
+      <div class="dash-bar ${isToday ? 'today' : ''}" style="height:${h}px;background:${bg};position:relative">
+        ${mins ? `<div class="dash-bar-val">${mins}m</div>` : ''}
+      </div>
+    </div>`;
+      }).join('');
+      document.getElementById('dashBarLabels2').innerHTML = week.map(d => {
+        const k = d.toISOString().split('T')[0];
+        const isToday = k === today;
+        return `<div class="dash-bar-lbl ${isToday ? 'today' : ''}">${dayN[d.getDay()]}</div>`;
+      }).join('');
+    }
+
+    function calcLongestStreak() {
+      const sorted = [...new Set(logs.map(l => l.date))].sort();
+      let best = 0, cur = 0, prev = null;
+      for (let d of sorted) {
+        if (!prev) { cur = 1; }
+        else { const diff = (new Date(d) - new Date(prev)) / 86400000; cur = diff === 1 ? cur + 1 : 1; }
+        best = Math.max(best, cur); prev = d;
+      }
+      return best;
+    }
+
+    // ─── HOME ───
+    function renderHome() {
+      updateStats(); renderQuote(); renderGoalRing(); renderMoodBars(); renderBarChart(); renderHeatmap();
+    }
+    function renderQuote() {
+      const dayOfYear = Math.floor((Date.now() - new Date(new Date().getFullYear(), 0, 0)) / 86400000);
+      const q = QUOTES[dayOfYear % QUOTES.length];
+      document.getElementById('quoteEn').textContent = q.en;
+      document.getElementById('quoteMn').textContent = q.mn;
+    }
+    function updateStats() {
+      const days = new Set(logs.map(l => l.date)).size;
+      const ac = logs.length ? Math.round(logs.reduce((a, b) => a + b.comp, 0) / logs.length) : 0;
+      const tw = logs.reduce((a, b) => a + b.words, 0) + contents.reduce((a, b) => a + b.words, 0);
+      document.getElementById('s-days').textContent = days;
+      document.getElementById('s-comp').innerHTML = ac + '<span class="stat-unit2">%</span>';
+      document.getElementById('s-words').textContent = tw;
+      document.getElementById('streakBadge').textContent = `🔥 ${calcStreak()}`;
+      document.getElementById('levelBadge').textContent = calcCEFR(ac, tw).level;
+    }
+    function renderGoalRing() {
+      const tl = logs.filter(l => l.date === todayStr());
+      const ts = sessions.filter(s => s.date === todayStr());
+      const dW = tl.reduce((a, b) => a + b.words, 0);
+      const dM = tl.reduce((a, b) => a + b.mins, 0) + ts.reduce((a, b) => a + b.mins, 0);
+      const dC = tl.length ? Math.round(tl.reduce((a, b) => a + b.comp, 0) / tl.length) : 0;
+      const dS = tl.length;
+      const scores = [Math.min(1, dW / settings.goalWords), Math.min(1, dM / settings.goalMins), settings.goalComp > 0 ? Math.min(1, dC / settings.goalComp) : 0, Math.min(1, dS / settings.goalSessions)];
+      const pct = Math.round(scores.reduce((a, b) => a + b, 0) / scores.length * 100);
+      const circ = 490.09;
+      document.getElementById('ringArc').style.strokeDashoffset = circ - (circ * pct / 100);
+      document.getElementById('ringPct').textContent = pct + '%';
+      const goals = [
+        { icon: '📖', name: 'Words', cur: dW, max: settings.goalWords, unit: 'w' },
+        { icon: '⏱', name: 'Study', cur: dM, max: settings.goalMins, unit: 'm' },
+        { icon: '📺', name: 'Comprehension', cur: dC, max: settings.goalComp, unit: '%' },
+        { icon: '✅', name: 'Sessions', cur: dS, max: settings.goalSessions, unit: '' },
+      ];
+      document.getElementById('goalCards').innerHTML = goals.map(g => {
+        const p = Math.min(100, Math.round(g.cur / Math.max(1, g.max) * 100));
+        const done = g.cur >= g.max;
+        return `<div class="goal-card"><div class="goal-row2">
+      <div class="goal-icon">${g.icon}</div>
+      <div class="goal-info"><div class="goal-name">${g.name}</div>
+        <div class="goal-bar-track"><div class="goal-bar-fill ${done ? 'done' : ''}" style="width:${p}%"></div></div>
+      </div>
+      <div class="goal-val ${done ? 'done' : ''}">${g.cur}/${g.max}${g.unit}</div>
+    </div></div>`;
+      }).join('');
+    }
+    function renderMoodBars() {
+      const now = new Date(); const days = [];
+      for (let i = 6; i >= 0; i--) { const d = new Date(now); d.setDate(d.getDate() - i); days.push(d); }
+      const barsEl = document.getElementById('moodBars'); const daysEl = document.getElementById('moodDays');
+      barsEl.innerHTML = ''; daysEl.innerHTML = '';
+      const dayN = ['S', 'M', 'T', 'W', 'T', 'F', 'S'];
+      days.forEach(d => {
+        const k = d.toISOString().split('T')[0];
+        const dl = logs.filter(l => l.date === k && l.mood);
+        const avg = dl.length ? dl.reduce((a, b) => a + b.mood, 0) / dl.length : 0;
+        const pct = avg ? avg * 10 : 5;
+        const col = avg >= 8 ? '#8b5cf6' : avg >= 6 ? '#6d28d9' : avg >= 4 ? '#4c1d95' : '#1c1c1e';
+        const bar = document.createElement('div'); bar.className = 'mood-b'; bar.style.cssText = `height:${pct}%;background:${avg ? col : '#1c1c1e'};${avg >= 7 ? 'box-shadow:0 0 8px rgba(139,92,246,.5)' : ''}`;
+        barsEl.appendChild(bar);
+        const lbl = document.createElement('div'); lbl.className = 'mood-dl'; lbl.textContent = dayN[d.getDay()]; daysEl.appendChild(lbl);
+      });
+    }
+    function renderBarChart() {
+      const sorted = [...logs].sort((a, b) => a.date.localeCompare(b.date));
+      const dm = {}; sorted.forEach(l => { if (!dm[l.date]) dm[l.date] = []; dm[l.date].push(l.comp); });
+      const dates = Object.keys(dm).slice(-14);
+      const comps = dates.map(d => Math.round(dm[d].reduce((a, b) => a + b, 0) / dm[d].length));
+      const max = Math.max(...comps, 1);
+      const el = document.getElementById('barChart'); el.innerHTML = '';
+      if (!dates.length) { el.innerHTML = '<div style="color:var(--text3);font-size:12px;text-align:center;width:100%;padding:20px 0">No data yet</div>'; return; }
+      dates.forEach((d, i) => {
+        const isTop = comps[i] === Math.max(...comps);
+        const col = document.createElement('div'); col.className = 'bar-col';
+        const track = document.createElement('div'); track.className = 'bar-track';
+        const bar = document.createElement('div'); bar.className = 'bar' + (isTop ? ' active' : ''); bar.style.height = (comps[i] / max * 100) + '%';
+        track.appendChild(bar);
+        const lbl = document.createElement('div'); lbl.className = 'bar-day'; lbl.textContent = d.slice(5).split('-')[1];
+        col.appendChild(track); col.appendChild(lbl); el.appendChild(col);
+      });
+    }
+    function renderHeatmap() {
+      const grid = document.getElementById('heatmap');
+      const cnt = {}; logs.forEach(l => { cnt[l.date] = (cnt[l.date] || 0) + 1; });
+      let html = '';
+      for (let i = 89; i >= 0; i--) { const d = new Date(); d.setDate(d.getDate() - i); const k = d.toISOString().split('T')[0]; const c = cnt[k] || 0; const lv = c === 0 ? 0 : c === 1 ? 2 : c === 2 ? 3 : 4; html += `<div class="hm-day" data-l="${lv}" title="${k}"></div>`; }
+      grid.innerHTML = html;
+    }
+
+    // ─── LEVEL ───
+    function renderLevel() {
+      const tw = logs.reduce((a, b) => a + b.words, 0) + contents.reduce((a, b) => a + b.words, 0);
+      const ac = logs.length ? Math.round(logs.reduce((a, b) => a + b.comp, 0) / logs.length) : 0;
+      const cefr = calcCEFR(ac, tw);
+      document.getElementById('cefrBig').textContent = cefr.level;
+      document.getElementById('cefrName').textContent = cefr.name;
+      document.getElementById('cefrFill').style.width = cefr.pct + '%';
+      document.getElementById('cefrDot').style.left = cefr.pct + '%';
+      ['A1', 'A2', 'B1', 'B2', 'C1', 'C2'].forEach(l => { const el = document.getElementById('cl-' + l); if (el) el.classList.toggle('active', l === cefr.level); });
+      const next = CEFR[CEFR.indexOf(cefr) + 1];
+      document.getElementById('cefrInsight').innerHTML = next ? `Current: <strong>${ac}% comp</strong>, <strong>${tw} words</strong>.<br>Next (${next.level}): need <strong>${next.minComp}%</strong> + <strong>${next.minWords} words</strong>. Gap: <strong>${Math.max(0, next.minWords - tw)} words</strong>.` : '<strong>Excellent! Highest level reached.</strong>';
+      const sl = [...logs].sort((a, b) => a.date.localeCompare(b.date)).slice(-30);
+      if (charts.level) charts.level.destroy();
+      if (!sl.length) return;
+      charts.level = new Chart(document.getElementById('levelChart').getContext('2d'), {
+        type: 'line',
+        data: { labels: sl.map(l => l.date.slice(5)), datasets: [{ label: 'Comprehension %', data: sl.map(l => l.comp), borderColor: '#8b5cf6', backgroundColor: 'rgba(139,92,246,.08)', tension: 0.4, fill: true, pointRadius: 3, pointBackgroundColor: '#8b5cf6', borderWidth: 2 }] },
+        options: { responsive: true, plugins: { legend: { labels: { color: '#52525b', font: { family: 'Inter', size: 11 } } } }, scales: { x: { ticks: { color: '#52525b', font: { family: 'Inter', size: 9 } }, grid: { color: 'rgba(255,255,255,.03)' } }, y: { min: 0, max: 100, ticks: { color: '#52525b', font: { family: 'Inter', size: 10 } }, grid: { color: 'rgba(255,255,255,.03)' } } } }
+      });
+    }
+
+    // ─── ADAPTIVE LEVEL QUIZ ───
+    const LEVEL_ORDER = ['A1', 'A2', 'B1', 'B2', 'C1', 'C2'];
+
+    function startQuiz() {
+      const allQs = [];
+      LEVEL_ORDER.forEach(lv => {
+        (QUIZ_QUESTIONS[lv] || []).forEach(q => allQs.push({ ...q, level: lv }));
+      });
+      quizState = {
+        questions: allQs,
+        current: 0,
+        score: 0,
+        answers: [],
+        levelScores: { A1: 0, A2: 0, B1: 0, B2: 0, C1: 0, C2: 0 },
+        levelTotals: { A1: 0, A2: 0, B1: 0, B2: 0, C1: 0, C2: 0 },
+        currentLevel: 'A1',
+        startTime: Date.now(),
+        determined: null
+      };
+      document.getElementById('quizOverlay').style.display = 'flex';
+      renderQuizQ();
+    }
+
+    function getQuizTime() {
+      const elapsed = Math.floor((Date.now() - quizState.startTime) / 1000);
+      const m = Math.floor(elapsed / 60);
+      const s = elapsed % 60;
+      return `${m}:${s < 10 ? '0' + s : s}`;
+    }
+
+    function renderQuizQ() {
+      const { questions, current } = quizState;
+      if (current >= questions.length) { renderQuizResult(); return; }
+      const q = questions[current];
+      const lvIdx = LEVEL_ORDER.indexOf(q.level);
+      const lvColor = ['#22c55e', '#3b82f6', '#8b5cf6', '#f97316', '#ec4899', '#ef4444'][lvIdx];
+
+      // level progress indicator
+      const lvProgress = LEVEL_ORDER.map((lv, i) => {
+        const done = LEVEL_ORDER.indexOf(q.level) > i;
+        const active = lv === q.level;
+        return `<div style="flex:1;text-align:center;font-size:10px;font-weight:700;padding:4px 0;border-radius:6px;
+      background:${done ? 'var(--pglow3)' : active ? 'var(--pglow)' : 'var(--surface2)'};
+      color:${done ? 'var(--green)' : active ? 'var(--p2)' : 'var(--text3)'};
+      border:1px solid ${active ? 'var(--p)' : 'transparent'}">${lv}</div>`;
+      }).join('');
+
+      // pip progress for current level questions
+      const lvQuestions = questions.filter(qq => qq.level === q.level);
+      const lvQIdx = lvQuestions.indexOf(q);
+      const pips = lvQuestions.map((_, i) => {
+        const globalIdx = questions.indexOf(lvQuestions[i]);
+        if (globalIdx < current) {
+          return `<div class="qpip ${quizState.answers[globalIdx] ? 'correct' : 'wrong'}"></div>`;
+        }
+        return `<div class="qpip ${globalIdx === current ? 'done' : ''}"></div>`;
+      }).join('');
+
+      document.getElementById('quizBody').innerHTML = `
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
+      <div class="quiz-title">${q.level} Level · ${lvQIdx + 1}/${lvQuestions.length}</div>
+      <div style="font-size:12px;color:var(--text3);font-weight:600">⏱ ${getQuizTime()}</div>
+    </div>
+    <div style="display:flex;gap:4px;margin-bottom:12px">${lvProgress}</div>
+    <div class="quiz-progress">${pips}</div>
+    <div class="quiz-q">${q.q}</div>
+    <div class="quiz-opts">
+      ${q.opts.map((o, i) => `<button class="qopt" onclick="answerQuiz(${i})">${o}</button>`).join('')}
+    </div>
+    <div style="text-align:center;margin-top:14px;font-size:11px;color:var(--text3)">
+      Нийт: ${current + 1} / ${questions.length} асуулт
+    </div>`;
+    }
+
+    function answerQuiz(chosen) {
+      const q = quizState.questions[quizState.current];
+      const correct = chosen === q.ans;
+      quizState.answers.push(correct);
+      if (correct) {
+        quizState.score++;
+        quizState.levelScores[q.level]++;
+      }
+      quizState.levelTotals[q.level]++;
+
+      // show feedback
+      if (correct) SFX.correct(); else SFX.wrong();
+      const opts = document.querySelectorAll('.qopt');
+      opts.forEach((el, i) => {
+        if (i === q.ans) el.classList.add('correct');
+        else if (i === chosen && !correct) el.classList.add('wrong');
+        el.onclick = null;
+      });
+      setTimeout(() => { quizState.current++; renderQuizQ(); }, 800);
+    }
+
+    function renderQuizResult() {
+      const { score, questions, levelScores, levelTotals } = quizState;
+      const total = questions.length;
+      const elapsed = Math.floor((Date.now() - quizState.startTime) / 1000);
+      const mins = Math.floor(elapsed / 60);
+      const secs = elapsed % 60;
+
+      // Determine highest passed level (6/8 = 75% needed)
+      let determinedLevel = 'A1';
+      for (const lv of LEVEL_ORDER) {
+        const lvTotal = levelTotals[lv] || 0;
+        const lvScore = levelScores[lv] || 0;
+        if (lvTotal > 0 && lvScore >= Math.ceil(lvTotal * 0.75)) {
+          determinedLevel = lv;
+        } else {
+          break;
+        }
+      }
+
+      // Save determined level
+      localStorage.setItem('eng_quiz_level', determinedLevel);
+
+      // Badge
+      let earned = JSON.parse(localStorage.getItem('eng_badges') || '{}');
+      earned.quiz_pass = true;
+      localStorage.setItem('eng_badges', JSON.stringify(earned));
+      SFX.levelup();
+
+      // Level breakdown HTML
+      const breakdown = LEVEL_ORDER.map(lv => {
+        const s = levelScores[lv] || 0;
+        const t = levelTotals[lv] || 0;
+        if (!t) return '';
+        const passed = s >= Math.ceil(t * 0.75);
+        const pct = Math.round(s / t * 100);
+        return `<div style="display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid var(--border)">
+      <div style="font-size:13px;font-weight:800;width:28px;color:${passed ? 'var(--green)' : 'var(--red)'}">${lv}</div>
+      <div style="flex:1;height:6px;background:var(--surface3);border-radius:4px;overflow:hidden">
+        <div style="height:100%;width:${pct}%;background:${passed ? 'var(--green)' : 'var(--red)'};;border-radius:4px"></div>
+      </div>
+      <div style="font-size:12px;font-weight:700;color:${passed ? 'var(--green)' : 'var(--text3)'}; min-width:36px;text-align:right">${s}/${t}</div>
+      <div style="font-size:14px">${passed ? '✅' : '❌'}</div>
+    </div>`;
+      }).join('');
+
+      document.getElementById('quizBody').innerHTML = `
+    <div class="celebrate">
+      <div class="celebrate-emoji">🎓</div>
+      <div class="celebrate-title">Таны түвшин: ${determinedLevel}</div>
+      <div class="celebrate-score">${score}/${total}</div>
+      <div class="celebrate-sub" style="margin:6px 0 4px">⏱ ${mins}:${secs < 10 ? '0' + secs : secs} · ${Math.round(score / total * 100)}% зөв</div>
+      <div style="margin:16px 0;text-align:left;width:100%;max-width:340px">
+        <div style="font-size:12px;font-weight:700;color:var(--text2);margin-bottom:8px">Түвшин тус бүрийн үр дүн:</div>
+        ${breakdown}
+      </div>
+      <div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:16px">
+        <button class="btn-primary" onclick="startQuiz()" style="flex:1;max-width:180px">Дахин өгөх</button>
+        <button class="btn-ghost" onclick="closeQuiz()" style="flex:1;max-width:180px">Хаах</button>
+      </div>
+    </div>`;
+
+      // Refresh level display
+      renderLevel();
+    }
+
+    function closeQuiz() { document.getElementById('quizOverlay').style.display = 'none'; }
+    document.getElementById('quizOverlay').addEventListener('click', function (e) { if (e.target === this) closeQuiz(); });
+
+    // ─── BADGES ───
+    function calcEarned() {
+      const tw = logs.reduce((a, b) => a + b.words, 0) + contents.reduce((a, b) => a + b.words, 0);
+      const ac = logs.length ? logs.reduce((a, b) => a + b.comp, 0) / logs.length : 0;
+      const tm = logs.reduce((a, b) => a + b.mins, 0) + sessions.reduce((a, b) => a + b.mins, 0);
+      const types = new Set(logs.map(l => l.type));
+      const streak = calcStreak();
+      const savedBadges = JSON.parse(localStorage.getItem('eng_badges') || '{}');
+      return {
+        first_log: logs.length > 0, streak3: streak >= 3, streak7: streak >= 7, streak30: streak >= 30,
+        words50: tw >= 50, words200: tw >= 200, w20bank: words.length >= 20,
+        comp70: ac >= 70, comp85: ac >= 85, time60: tm >= 60, time300: tm >= 300,
+        content5: contents.length >= 5,
+        shadow: logs.filter(l => l.type === 'Shadowing 🗣️').length >= 5,
+        mood10: logs.filter(l => l.mood).length >= 10,
+        quiz_pass: !!savedBadges.quiz_pass,
+      };
+    }
+    function renderBadges() {
+      const e = calcEarned(); const total = BADGES.filter(b => e[b.id]).length;
+      const prev = parseInt(document.getElementById('badgeCount').textContent) || 0;
+      if (total > prev && prev > 0) SFX.badge();
+      document.getElementById('badgeCount').textContent = `${total}/${BADGES.length} earned`;
+      document.getElementById('badgesGrid').innerHTML = BADGES.map(b => `
+    <div class="badge-card2 ${e[b.id] ? 'earned' : ''}">
+      <div class="badge-emoji">${b.icon}</div>
+      <div class="badge-n">${b.name}</div>
+      <div class="badge-d">${b.desc}</div>
+    </div>`).join('');
+    }
+
+    // ─── SETTINGS ───
+    function loadSettings() { document.getElementById('goalWords').value = settings.goalWords; document.getElementById('goalMins').value = settings.goalMins; document.getElementById('goalComp').value = settings.goalComp; document.getElementById('goalSessions').value = settings.goalSessions; renderReminderList(); }
+    function saveSettings() { settings = { goalWords: +document.getElementById('goalWords').value || 10, goalMins: +document.getElementById('goalMins').value || 30, goalComp: +document.getElementById('goalComp').value || 80, goalSessions: +document.getElementById('goalSessions').value || 1 }; saveAll(); showToast('✓ Goals saved'); }
+
+    // ─── REMINDERS ───
+    function addReminder() { const t = document.getElementById('remTime').value; const l = document.getElementById('remLabel').value || 'Study English!'; if (!t) { showToast('Pick a time'); return; } reminders.push({ id: Date.now(), time: t, label: l, on: true }); saveAll(); renderReminderList(); scheduleReminders(); showToast('✓ Reminder added'); }
+    function deleteReminder(id) { reminders = reminders.filter(r => r.id !== id); saveAll(); renderReminderList(); }
+    function toggleReminder(id) { const r = reminders.find(r => r.id === id); if (r) r.on = !r.on; saveAll(); renderReminderList(); }
+    function renderReminderList() { const el = document.getElementById('reminderList'); if (!reminders.length) { el.innerHTML = '<div style="font-size:13px;color:var(--text3);padding:8px 0">No reminders</div>'; return; } el.innerHTML = reminders.map(r => `<div class="rem-item"><div class="rem-time">${r.time}</div><div class="rem-lbl">${r.label}</div><button class="toggle ${r.on ? 'on' : ''}" onclick="toggleReminder(${r.id})"></button><button class="log-delete" onclick="deleteReminder(${r.id})">✕</button></div>`).join(''); }
+    function scheduleReminders() { if (!('Notification' in window)) return; if (Notification.permission === 'default') Notification.requestPermission(); clearInterval(window._rc); window._rc = setInterval(() => { if (Notification.permission !== 'granted') return; const n = new Date(); const hm = `${String(n.getHours()).padStart(2, '0')}:${String(n.getMinutes()).padStart(2, '0')}`; reminders.filter(r => r.on && r.time === hm && n.getSeconds() < 30).forEach(r => { new Notification('ENG TRACK', { body: r.label }); }); }, 15000); }
+
+    // ─── EXPORT ───
+    function exportCSV() { const h = 'Date,Type,Content,Comp%,Words,Pron,Minutes,Mood,Note'; const rows = logs.map(l => [l.date, l.type, l.content || '', l.comp, l.words, l.pron, l.mins, l.mood || '', l.note?.replace(/,/g, ' ') || ''].join(',')); const b = new Blob([h + '\n' + rows.join('\n')], { type: 'text/csv' }); const a = document.createElement('a'); a.href = URL.createObjectURL(b); a.download = 'eng_' + todayStr() + '.csv'; a.click(); showToast('✓ CSV downloaded'); }
+    function clearData() { if (confirm('Clear ALL data?')) { logs = []; sessions = []; words = []; contents = []; saveAll(); renderHome(); showToast('Cleared'); } }
+
+    // ─── PWA ───
+    const mf = { name: 'ENG YESKO', short_name: 'ENG', start_url: '.', display: 'standalone', background_color: '#000', theme_color: '#8b5cf6', icons: [{ src: `data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 192 192'><rect width='192' height='192' fill='%23000'/><circle cx='96' cy='96' r='70' fill='none' stroke='%238b5cf6' stroke-width='8' opacity='0.5'/><text x='96' y='115' font-size='72' font-weight='900' text-anchor='middle' fill='%238b5cf6' font-family='Inter,sans-serif'>E</text></svg>`, sizes: '192x192', type: 'image/svg+xml' }] };
+    const mb = new Blob([JSON.stringify(mf)], { type: 'application/json' });
+    document.getElementById('manifestLink').href = URL.createObjectURL(mb);
+    if ('serviceWorker' in navigator) { const sw = `self.addEventListener('fetch',e=>e.respondWith(fetch(e.request).catch(()=>new Response('Offline',{status:503}))));`; navigator.serviceWorker.register(URL.createObjectURL(new Blob([sw], { type: 'application/javascript' }))).catch(() => { }); }
+
+    // ─── CHART.JS ───
+    const sc = document.createElement('script');
+    sc.src = 'https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js';
+    sc.onload = () => renderHome();
+    document.head.appendChild(sc);
+  </script>
+</body>
+
+</html>
